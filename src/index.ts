@@ -1,5 +1,6 @@
 import * as Hapi from "@hapi/hapi";
 import * as route from "./route";
+import { PrismaClient } from "@prisma/client";
 
 const init = async () => {
   const server = Hapi.server({
@@ -15,7 +16,8 @@ const init = async () => {
     },
   });
 
-  await route.initialRouts.register(server);
+  const prisma = new PrismaClient();
+  await route.initialRouts.register(server, prisma);
 
   await server.start();
   console.log("Server running on %s", server.info.uri);
