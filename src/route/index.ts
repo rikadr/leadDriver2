@@ -1,1 +1,1 @@
-export * as initialRouts from "./initial-routes";
+export * as userRoutes from "./user-routes";
