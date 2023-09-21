@@ -12,7 +12,7 @@ export const register = async (server: Server, userManager: UserManager) => {
       const formattedUserList = users
         .map((u) => `${u.name} (${u.email})`)
         .join(", ");
-      return formattedUserList;
+      return { data: formattedUserList };
     },
   });
 

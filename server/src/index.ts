@@ -6,7 +6,7 @@ import { UserManager } from "./store-managers/user-manager";
 
 const init = async () => {
   const server = Hapi.server({
-    port: 3000,
+    port: 3200,
     host: "localhost",
   });
 
