@@ -23,6 +23,7 @@ const init = async () => {
   const userManager = new UserManager(userStore);
 
   await route.userRoutes.register(server, userManager);
+  await route.authRoutes.register(server);
 
   await server.start();
   console.log("Server running on %s", server.info.uri);

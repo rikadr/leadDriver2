@@ -8,7 +8,15 @@ export const register = async (server: Server, userManager: UserManager) => {
     method: "GET",
     path: "/test",
     handler: async (request, h, err) => {
-      return { data: { message: "Hallo from backend test :)" } };
+      const cookie = request.headers.cookie;
+
+      if (!cookie) {
+        return { data: { message: "No cookie, no fun :(" } };
+      }
+
+      return {
+        data: { message: "Hallo from backend, we got your delivery :)" },
+      };
     },
   });
 
