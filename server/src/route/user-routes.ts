@@ -6,6 +6,14 @@ import { randomInt } from "crypto";
 export const register = async (server: Server, userManager: UserManager) => {
   server.route({
     method: "GET",
+    path: "/test",
+    handler: async (request, h, err) => {
+      return { data: { message: "Hallo from backend test :)" } };
+    },
+  });
+
+  server.route({
+    method: "GET",
     path: "/users",
     handler: async (request, h, err) => {
       const users = await userManager.findMany();

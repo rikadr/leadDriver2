@@ -1,28 +1,26 @@
-import React, { useEffect } from "react";
-import logo from "./logo.svg";
+import React, { useEffect, useState } from "react";
 import "./App.css";
+import { IApiResponse } from "./types";
 
 function App() {
+  const [message, setMessage] = useState("");
   useEffect(() => {
-    fetch("/users")
+    fetch("/test")
       .then((res) => res.json())
-      .then((data) => console.log(data.data));
+      .then((data: IApiResponse<{ message: string }>) => {
+        if (data.data) {
+          setMessage(data.data.message);
+        }
+      });
   }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <p>Message from backend /test</p>
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          <i>{message ?? "Nothing :("}</i>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
