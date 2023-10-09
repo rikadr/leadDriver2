@@ -21,21 +21,6 @@ const init = async () => {
 
   await server.register(require("@hapi/cookie"));
 
-  // Creates a new auth scheme called "cookie"
-  // server.auth.scheme("cookie", () => {
-  //   return {
-  //     authenticate: async (request, h) => {
-  //       const cookie = request.headers.cookie;
-
-  //       if (!cookie) {
-  //         return h.unauthenticated(new Error("No cookie :("));
-  //       }
-
-  //       return h.authenticated({ credentials: { id: "test" } });
-  //     },
-  //   };
-  // });
-
   // Sets up cookie auth strategy
   server.auth.strategy("login", "cookie", {
     cookie: {
@@ -45,7 +30,7 @@ const init = async () => {
       // ttl: 24 * 60 * 60 * 1000, // Set session to 1 day
       // path: "/", // Set cookie to root path
     },
-    redirectTo: "/",
+    // redirectTo: "/api", // Might not want this if react is handling routing
 
     validate: async (
       request: Hapi.Request<Hapi.ReqRefDefaults>, // Hapi request object
@@ -65,9 +50,9 @@ const init = async () => {
   server.route([
     {
       method: "GET",
-      path: "/",
+      path: "/api",
       handler: (request, h, err) => {
-        return "Welcome to the home page";
+        return "Welcome to the home route";
       },
       options: {
         auth: { mode: "try" },
@@ -75,9 +60,9 @@ const init = async () => {
     },
     {
       method: "GET",
-      path: "/user",
+      path: "/api/secret",
       handler: (request, h, err) => {
-        return "Welcome to the secret user page";
+        return "Welcome to the secret page";
       },
     },
     // {
@@ -92,7 +77,7 @@ const init = async () => {
     // },
     {
       method: "POST",
-      path: "/login",
+      path: "/api/login",
       handler: (request, h, err) => {
         const { username, password } = request.payload as {
           username: string;
@@ -104,6 +89,17 @@ const init = async () => {
           return "success!!";
         }
         return "failed login :(";
+      },
+      options: {
+        auth: { mode: "try" },
+      },
+    },
+    {
+      method: "POST",
+      path: "/api/logout",
+      handler: (request, h, err) => {
+        request.cookieAuth.clear();
+        return "logged out, bye";
       },
       options: {
         auth: { mode: "try" },
