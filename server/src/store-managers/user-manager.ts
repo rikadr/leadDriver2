@@ -5,16 +5,26 @@ import { CreateUserPayload } from "../types";
 export class UserManager {
   constructor(private userStore: UserStore) {}
 
-  async findOne({ userId }: { userId: string }): Promise<user | null> {
-    return this.userStore.findOne({ userId });
+  async findOne({ userId }: { userId: string }): Promise<user> {
+    const user = await this.userStore.findOne({ userId });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+    return user;
   }
 
-  async findOneByName({ name }: { name: string }): Promise<user | null> {
-    return this.userStore.findOneByName({ name });
+  async findOneByName({ name }: { name: string }): Promise<user> {
+    const user = await this.userStore.findOneByName({ name });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+    return user;
   }
 
   async findMany(): Promise<user[]> {
-    const users = this.userStore.findMany();
+    const users = await this.userStore.findMany();
     return users;
   }
 

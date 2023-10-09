@@ -12,6 +12,15 @@ export type Credentials = {
   roles?: string[];
 };
 
+export type LoginPayload = {
+  name: string;
+  password: string;
+};
+
+export type SignupPayload = CreateUserPayload & {
+  password: string;
+};
+
 /**
  * USER TYPES
  */

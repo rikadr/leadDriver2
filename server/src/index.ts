@@ -4,6 +4,8 @@ import { PrismaClient } from "@prisma/client";
 import { UserStore } from "./stores/user-store";
 import { UserManager } from "./store-managers/user-manager";
 import { Cookie, Credentials } from "./types";
+import { AuthManager } from "./store-managers/auth-manager";
+import { AuthStore } from "./stores/auth-store";
 
 const init = async () => {
   const server = Hapi.server({
@@ -12,9 +14,16 @@ const init = async () => {
   });
 
   const prisma = new PrismaClient();
+
+  // Stores
+  const authStore = new AuthStore(prisma);
   const userStore = new UserStore(prisma);
+
+  // Managers
+  const authMAnager = new AuthManager(authStore, userStore);
   const userManager = new UserManager(userStore);
 
+  // Auth
   await server.register(require("@hapi/cookie"));
 
   server.auth.strategy("login", "cookie", {
@@ -47,8 +56,9 @@ const init = async () => {
 
   server.auth.default("login");
 
+  // Routes
   await route.userRoutes.register(server, userManager);
-  await route.authRoutes.register(server, userManager);
+  await route.authRoutes.register(server, authMAnager, userManager);
 
   await server.start();
   console.log("Server running on %s", server.info.uri);

@@ -13,17 +13,19 @@ export class UserStore {
   }
 
   async findOneByName({ name }: { name: string }): Promise<user | null> {
-    const user = await this.prismaClient.user.findFirst({
+    return await this.prismaClient.user.findFirst({
       where: {
         name,
       },
     });
+  }
 
-    if (!user) {
-      return null;
-    } else {
-      return user;
-    }
+  async findOneByEmail({ email }: { email: string }): Promise<user | null> {
+    return await this.prismaClient.user.findFirst({
+      where: {
+        email,
+      },
+    });
   }
 
   async findMany(): Promise<user[]> {
@@ -32,7 +34,10 @@ export class UserStore {
 
   async createUser(user: CreateUserPayload): Promise<user> {
     return await this.prismaClient.user.create({
-      data: user,
+      data: {
+        name: user.name,
+        email: user.email,
+      },
     });
   }
 }
