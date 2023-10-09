@@ -14,4 +14,11 @@ model user {
   id    String @id @default(uuid())
   email String @unique
   name  String
+  auth  auth?
+}
+
+model auth {
+  userId String @id
+  user   user   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hash   String
 }
