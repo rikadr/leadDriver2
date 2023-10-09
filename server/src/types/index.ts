@@ -16,3 +16,10 @@ export interface IApiResponse<T = unknown, E = unknown> {
   message?: string;
   statusCode?: number;
 }
+
+export type SessionCookieObject = {
+  id: string;
+  userId: string;
+  username: string;
+  email: string;
+};

@@ -3,13 +3,13 @@ import "./App.css";
 import { IApiResponse } from "./types";
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("not set");
   useEffect(() => {
     fetch("/test")
       .then((res) => res.json())
       .then((data: IApiResponse<{ message: string }>) => {
         if (data.data) {
-          setMessage(data.data.message);
+          console.log(data.data.message);
         }
       });
   }, []);

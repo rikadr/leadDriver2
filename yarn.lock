@@ -1377,6 +1377,16 @@
   dependencies:
     "@hapi/boom" "^10.0.0"
 
+"@hapi/cookie@^12.0.1":
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/@hapi/cookie/-/cookie-12.0.1.tgz#7e4da17f9843a01732a5aa875592c1aa8c6bed05"
+  integrity sha512-TpykARUIgTBvgbsgtYe5CrM/7XBGms2/22JD3N6dzct6bG1vcOC6pH1JWIos1O5zvQnyDSJ2pnaFk+DToHkAng==
+  dependencies:
+    "@hapi/boom" "^10.0.1"
+    "@hapi/bounce" "^3.0.1"
+    "@hapi/hoek" "^11.0.2"
+    "@hapi/validate" "^2.0.1"
+
 "@hapi/cryptiles@^6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@hapi/cryptiles/-/cryptiles-6.0.1.tgz#7868a9d4233567ed66f0a9caf85fdcc56e980621"
@@ -1389,7 +1399,7 @@
   resolved "https://registry.yarnpkg.com/@hapi/file/-/file-3.0.0.tgz#f1fd824493ac89a6fceaf89c824afc5ae2121c09"
   integrity sha512-w+lKW+yRrLhJu620jT3y+5g2mHqnKfepreykvdOcl9/6up8GrQQn+l3FRTsjHTKbkbfQFkuksHpdv2EcpKcJ4Q==
 
-"@hapi/hapi@^21.3.2":
+"@hapi/hapi@^21.1.0", "@hapi/hapi@^21.3.2":
   version "21.3.2"
   resolved "https://registry.yarnpkg.com/@hapi/hapi/-/hapi-21.3.2.tgz#f9f94c1c28ccad1444c838d04070fa1cd0409b33"
   integrity sha512-tbm0zmsdUj8iw4NzFV30FST/W4qzh/Lsw6Q5o5gAhOuoirWvxm8a4G3o60bqBw8nXvRNJ8uLtE0RKLlZINxHcQ==
@@ -2376,6 +2386,14 @@
     "@types/podium" "*"
     "@types/shot" "*"
     joi "^17.3.0"
+
+"@types/hapi__cookie@^12.0.3":
+  version "12.0.3"
+  resolved "https://registry.yarnpkg.com/@types/hapi__cookie/-/hapi__cookie-12.0.3.tgz#3d817cbb14125e0bfba01bdcca49ddbd9407049d"
+  integrity sha512-Q5QPxUM1t+hGGXy7cRsYtTlGnzmIZ1cGBkPxORMuiaaaiW+39eqmxz5A5gAakvssdBIspV3Xsg20imJorJrV2A==
+  dependencies:
+    "@hapi/hapi" "^21.1.0"
+    joi "^17.7.0"
 
 "@types/html-minifier-terser@^6.0.0":
   version "6.1.0"
@@ -6535,7 +6553,7 @@ jiti@^1.18.2:
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.20.0.tgz#2d823b5852ee8963585c8dd8b7992ffc1ae83b42"
   integrity sha512-3TV69ZbrvV6U5DfQimop50jE9Dl6J8O1ja1dvBbMba/sZ3YBEQqJ2VZRoQPVnhlzjNtU1vaXRZVrVjU4qtm8yA==
 
-joi@^17.3.0:
+joi@^17.3.0, joi@^17.7.0:
   version "17.11.0"
   resolved "https://registry.yarnpkg.com/joi/-/joi-17.11.0.tgz#aa9da753578ec7720e6f0ca2c7046996ed04fc1a"
   integrity sha512-NgB+lZLNoqISVy1rZocE9PZI36bL/77ie924Ri43yEvi9GUUMPeyVIr8KdFTMUlby1p0PBYMk9spIxEUQYqrJQ==
