@@ -1,30 +1,29 @@
 import { Server } from "@hapi/hapi";
-import { IApiResponse, SessionCookieObject } from "../types";
-import { randomUUID } from "crypto";
+import { Cookie } from "../types";
+import { UserManager } from "../store-managers/user-manager";
 
-export const correctSessionId = "This is the correct session id";
-
-export const createdSessionObject: SessionCookieObject = {
-  userId: "test from validate function",
-  name: "test from validate function",
-  email: "test from validate function",
-};
-
-export const register = async (server: Server) => {
+export const register = async (server: Server, userManager: UserManager) => {
   server.route({
     method: "POST",
     path: "/api/login",
-    handler: (request, h, err) => {
+    handler: async (request, h, err) => {
       const { username, password } = request.payload as {
         username: string;
         password: string;
       };
 
-      if (username === "test" && password === "test") {
-        request.cookieAuth.set(createdSessionObject);
-        return "success!!";
+      const user = await userManager.findOneByName({ name: username });
+
+      if (!user) {
+        return "Name not found, failed login :(";
       }
-      return "failed login :(";
+
+      const cookie: Cookie = {
+        userId: user.id,
+      };
+
+      request.cookieAuth.set(cookie);
+      return "successful login as " + username + "!!";
     },
     options: {
       auth: { mode: "try" },

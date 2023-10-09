@@ -1,6 +1,6 @@
 import { Server } from "@hapi/hapi";
 import { UserManager } from "../store-managers/user-manager";
-import { CreateUserPayload } from "../types";
+import { CreateUserPayload, Credentials } from "../types";
 import { randomInt } from "crypto";
 
 export const register = async (server: Server, userManager: UserManager) => {
@@ -45,7 +45,9 @@ export const register = async (server: Server, userManager: UserManager) => {
     method: "GET",
     path: "/api/secret",
     handler: (request, h, err) => {
-      return "Welcome to the secret page";
+      const credentials = request.auth.credentials as unknown as Credentials;
+
+      return `Welcome to the secret page, ${credentials.name}. Email: ${credentials.email}`;
     },
   });
 };

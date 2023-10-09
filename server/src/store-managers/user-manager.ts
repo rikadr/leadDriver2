@@ -5,6 +5,14 @@ import { CreateUserPayload } from "../types";
 export class UserManager {
   constructor(private userStore: UserStore) {}
 
+  async findOne({ userId }: { userId: string }): Promise<user | null> {
+    return this.userStore.findOne({ userId });
+  }
+
+  async findOneByName({ name }: { name: string }): Promise<user | null> {
+    return this.userStore.findOneByName({ name });
+  }
+
   async findMany(): Promise<user[]> {
     const users = this.userStore.findMany();
     return users;

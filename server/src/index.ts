@@ -3,8 +3,7 @@ import * as route from "./route";
 import { PrismaClient } from "@prisma/client";
 import { UserStore } from "./stores/user-store";
 import { UserManager } from "./store-managers/user-manager";
-import { SessionCookieObject } from "./types";
-import { correctSessionId, createdSessionObject } from "./route/auth-routes";
+import { Cookie, Credentials } from "./types";
 
 const init = async () => {
   const server = Hapi.server({
@@ -12,40 +11,44 @@ const init = async () => {
     host: "localhost",
   });
 
+  const prisma = new PrismaClient();
+  const userStore = new UserStore(prisma);
+  const userManager = new UserManager(userStore);
+
   await server.register(require("@hapi/cookie"));
 
-  // Sets up cookie auth strategy
   server.auth.strategy("login", "cookie", {
     cookie: {
-      name: "session",
-      password: "password-should-be-32-characters", // Todo change this
+      name: "lead-drive-session",
+      password: "7d3f77b4-7873-4bc3-887f-470269fd",
       isSecure: false, // Todo set to true in production
       // ttl: 24 * 60 * 60 * 1000, // Set session to 1 day
     },
 
     validate: async (
-      request: Hapi.Request<Hapi.ReqRefDefaults>, // Hapi request object
-      session: SessionCookieObject // Session object
+      request: Hapi.Request<Hapi.ReqRefDefaults>,
+      session: Cookie // Session object
     ) => {
-      console.log("session", session);
+      const user = await userManager.findOne({ userId: session.userId });
 
-      // check if user exists in database
+      if (!user) {
+        return { isValid: false };
+      }
 
-      // if user exists, create cookie object and return it
+      const credentials: Credentials = {
+        userId: user.id,
+        name: user.name,
+        email: user.email,
+      };
 
-      return { isValid: true, credentials: createdSessionObject };
+      return { isValid: true, credentials };
     },
   });
 
-  // Sets default auth strategy for all routes
   server.auth.default("login");
 
-  const prisma = new PrismaClient();
-  const userStore = new UserStore(prisma);
-  const userManager = new UserManager(userStore);
-
   await route.userRoutes.register(server, userManager);
-  await route.authRoutes.register(server);
+  await route.authRoutes.register(server, userManager);
 
   await server.start();
   console.log("Server running on %s", server.info.uri);

@@ -1,4 +1,18 @@
 /**
+ * AUTH TYPES
+ */
+export type Cookie = {
+  userId: string;
+};
+
+export type Credentials = {
+  userId: string;
+  name: string;
+  email: string;
+  roles?: string[];
+};
+
+/**
  * USER TYPES
  */
 export type CreateUserPayload = {
@@ -16,9 +30,3 @@ export interface IApiResponse<T = unknown, E = unknown> {
   message?: string;
   statusCode?: number;
 }
-
-export type SessionCookieObject = {
-  userId: string;
-  name: string;
-  email: string;
-};
