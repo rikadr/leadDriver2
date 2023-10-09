@@ -18,8 +18,7 @@ export interface IApiResponse<T = unknown, E = unknown> {
 }
 
 export type SessionCookieObject = {
-  id: string;
   userId: string;
-  username: string;
+  name: string;
   email: string;
 };

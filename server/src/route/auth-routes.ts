@@ -1,57 +1,44 @@
 import { Server } from "@hapi/hapi";
-import { IApiResponse } from "../types";
+import { IApiResponse, SessionCookieObject } from "../types";
 import { randomUUID } from "crypto";
+
+export const correctSessionId = "This is the correct session id";
+
+export const createdSessionObject: SessionCookieObject = {
+  userId: "test from validate function",
+  name: "test from validate function",
+  email: "test from validate function",
+};
 
 export const register = async (server: Server) => {
   server.route({
     method: "POST",
-    path: "/login",
-    handler: async (
-      request,
-      h,
-      err
-    ): Promise<IApiResponse<{ success: true; message: string }>> => {
+    path: "/api/login",
+    handler: (request, h, err) => {
       const { username, password } = request.payload as {
         username: string;
         password: string;
       };
 
-      // Check if username and password are correct
-
-      const sessionId = randomUUID();
-
-      // set cookie
-      server.state("cookieTest", {
-        path: "/",
-        ttl: null,
-        isSecure: false,
-        isHttpOnly: true,
-        clearInvalid: false,
-        strictHeader: true,
-      });
-
-      h.response().state("cookieTest", sessionId);
-
-      return {
-        data: {
-          message: `username: ${username}, password: ${password}`,
-          success: true,
-        },
-      };
+      if (username === "test" && password === "test") {
+        request.cookieAuth.set(createdSessionObject);
+        return "success!!";
+      }
+      return "failed login :(";
     },
     options: {
-      state: {
-        parse: true,
-        failAction: "error",
-      },
+      auth: { mode: "try" },
     },
   });
   server.route({
     method: "POST",
-    path: "/logout",
-    handler: async (request, h, err) => {
-      h.response().unstate("cookieTest");
-      return { data: { message: "Logged out" } };
+    path: "/api/logout",
+    handler: (request, h, err) => {
+      request.cookieAuth.clear();
+      return "logged out, bye";
+    },
+    options: {
+      auth: { mode: "try" },
     },
   });
 };

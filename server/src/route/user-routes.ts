@@ -6,23 +6,7 @@ import { randomInt } from "crypto";
 export const register = async (server: Server, userManager: UserManager) => {
   server.route({
     method: "GET",
-    path: "/test",
-    handler: async (request, h, err) => {
-      const cookie = request.headers.cookie;
-
-      if (!cookie) {
-        return { data: { message: "No cookie, no fun :(" } };
-      }
-
-      return {
-        data: { message: "Hallo from backend, we got your delivery :)" },
-      };
-    },
-  });
-
-  server.route({
-    method: "GET",
-    path: "/users",
+    path: "/api/users",
     handler: async (request, h, err) => {
       const users = await userManager.findMany();
       const formattedUserList = users
@@ -34,7 +18,19 @@ export const register = async (server: Server, userManager: UserManager) => {
 
   server.route({
     method: "GET",
-    path: "/users/createRandom",
+    path: "/api/user/you",
+    handler: async (request, h, err) => {
+      const users = await userManager.findMany();
+      const formattedUserList = users
+        .map((u) => `${u.name} (${u.email})`)
+        .join(", ");
+      return { data: formattedUserList };
+    },
+  });
+
+  server.route({
+    method: "GET",
+    path: "/api/users/createRandom",
     handler: async (request, h, err) => {
       const createPayload: CreateUserPayload = {
         name: "Herman" + randomInt(100),
@@ -42,6 +38,14 @@ export const register = async (server: Server, userManager: UserManager) => {
       };
       await userManager.createUser(createPayload);
       return "Success!!";
+    },
+  });
+
+  server.route({
+    method: "GET",
+    path: "/api/secret",
+    handler: (request, h, err) => {
+      return "Welcome to the secret page";
     },
   });
 };
