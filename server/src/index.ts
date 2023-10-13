@@ -1,5 +1,5 @@
 import * as Hapi from "@hapi/hapi";
-import * as route from "./route";
+import * as route from "./routes";
 import { PrismaClient } from "@prisma/client";
 import { UserStore } from "./stores/user-store";
 import { UserManager } from "./store-managers/user-manager";
