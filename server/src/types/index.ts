@@ -24,6 +24,13 @@ export type SignupPayload = CreateUserPayload & {
 /**
  * USER TYPES
  */
+
+export type UserDTO = {
+  id: string;
+  name: string;
+  email: string;
+};
+
 export type CreateUserPayload = {
   name: string;
   email: string;

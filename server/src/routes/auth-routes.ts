@@ -25,7 +25,7 @@ export const register = async (
       };
 
       request.cookieAuth.set(cookie);
-      return "successful signup!! Welcome " + user.name;
+      return "successful signup!! Welcome " + user;
     },
     options: {
       auth: { mode: "try" },
