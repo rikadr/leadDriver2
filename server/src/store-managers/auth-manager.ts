@@ -1,50 +1,47 @@
-import { PrismaClient, user } from "@prisma/client";
+import { user } from "@prisma/client";
 import { UserStore } from "../stores/user-store";
-import { SignupPayload } from "../types";
-import { AuthStore } from "../stores/auth-store";
+import { LoginPayload, SignupPayload } from "../types";
+import { compare, hash } from "bcrypt";
+import { badData, notFound } from "@hapi/boom";
 
 export class AuthManager {
-  constructor(private authStore: AuthStore, private userStore: UserStore) {}
+  constructor(private userStore: UserStore) {}
 
   async signUp(payload: SignupPayload): Promise<user> {
     const existingUser = await this.userStore.findOneByEmail({
       email: payload.email,
     });
-
-    console.log("existingUser", existingUser);
-
     if (existingUser) {
-      throw new Error("User with this email already exists");
+      throw badData("User with this email already exists");
     }
-    console.log("next step");
 
-    const user = await this.userStore.createUser(payload);
+    const passwordHash = await hash(payload.password, 10);
 
-    console.log("user", user);
-
-    await this.authStore.createOne({
-      userId: user.id,
-      password: payload.password, // Todo hash password
+    const newUser = await this.userStore.createUser({
+      user: { name: payload.name, email: payload.email },
+      passwordHash,
     });
 
-    return user;
+    return newUser;
   }
 
-  async passwordStringMatch({
-    userId,
+  async authenticateUserAndPassword({
+    email,
     password,
-  }: {
-    userId: string;
-    password: string;
-  }): Promise<boolean> {
-    const authRecord = await this.authStore.findOne({ userId });
-    if (!authRecord) {
-      throw new Error("User auth not found");
-    }
-    if (authRecord.hash === password) {
-      return true;
-    } else {
-      return false;
+  }: LoginPayload): Promise<user> {
+    try {
+      const user = await this.userStore.findOneByEmail({ email });
+      if (!user) {
+        throw new Error();
+      }
+      const passwordMatch = compare(password, user.passwordHash);
+      if (!passwordMatch) {
+        throw new Error();
+      }
+
+      return user;
+    } catch (err) {
+      throw notFound("Email or password is incorrect");
     }
   }
 }

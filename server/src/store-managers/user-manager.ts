@@ -1,6 +1,6 @@
-import { PrismaClient, user } from "@prisma/client";
+import { user } from "@prisma/client";
 import { UserStore } from "../stores/user-store";
-import { CreateUserPayload } from "../types";
+import { notFound } from "@hapi/boom";
 
 export class UserManager {
   constructor(private userStore: UserStore) {}
@@ -9,7 +9,7 @@ export class UserManager {
     const user = await this.userStore.findOne({ userId });
 
     if (!user) {
-      throw new Error("User not found");
+      throw notFound("User not found");
     }
     return user;
   }
@@ -18,7 +18,7 @@ export class UserManager {
     const user = await this.userStore.findOneByName({ name });
 
     if (!user) {
-      throw new Error("User not found");
+      throw notFound("User not found");
     }
     return user;
   }
@@ -26,16 +26,5 @@ export class UserManager {
   async findMany(): Promise<user[]> {
     const users = await this.userStore.findMany();
     return users;
-  }
-
-  async createUser(user: CreateUserPayload): Promise<user> {
-    try {
-      const newUser = await this.userStore.createUser(user);
-      return newUser;
-    } catch (err) {
-      throw new Error(
-        "Something wrong happened when trying to create new user" + err
-      );
-    }
   }
 }

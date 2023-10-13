@@ -9,11 +9,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@hapi/boom": "^10.0.1",
     "@hapi/cookie": "^12.0.1",
     "@hapi/hapi": "^21.3.2",
-    "@prisma/client": "^5.3.1"
+    "@prisma/client": "^5.3.1",
+    "@types/boom": "^7.3.3",
+    "bcrypt": "^5.1.1",
+    "bcrypt-ts": "^4.0.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/boom": "^7.3.3",
     "@types/hapi": "^18.0.11",
     "@types/hapi__cookie": "^12.0.3",
     "@types/node": "^20.6.2",

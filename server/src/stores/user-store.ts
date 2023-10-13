@@ -32,11 +32,18 @@ export class UserStore {
     return await this.prismaClient.user.findMany();
   }
 
-  async createUser(user: CreateUserPayload): Promise<user> {
+  async createUser({
+    user,
+    passwordHash,
+  }: {
+    user: CreateUserPayload;
+    passwordHash: string;
+  }): Promise<user> {
     return await this.prismaClient.user.create({
       data: {
-        name: user.name,
+        passwordHash,
         email: user.email,
+        name: user.name,
       },
     });
   }

@@ -36,25 +36,16 @@ export const register = async (
     method: "POST",
     path: "/api/login",
     handler: async (request, h, err) => {
-      const { name, password } = request.payload as LoginPayload;
+      const payload = request.payload as LoginPayload;
 
-      const user = await userManager.findOneByName({ name });
-      // const passworsMatch
-      const passwordMatch = await authManager.passwordStringMatch({
-        userId: user.id,
-        password,
-      });
-
-      if (!passwordMatch) {
-        return "Name not found, failed login :(";
-      }
+      const user = await authManager.authenticateUserAndPassword(payload);
 
       const cookie: Cookie = {
         userId: user.id,
       };
-      // request.cookieAuth.clear();
       request.cookieAuth.set(cookie);
-      return "successful login as " + name + "!!";
+
+      return "Successful login as " + user.name + "!!";
     },
     options: {
       auth: { mode: "try" },
