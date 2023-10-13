@@ -18,7 +18,7 @@ const init = async () => {
   const userStore = new UserStore(prisma);
 
   // Managers
-  const authMAnager = new AuthManager(userStore);
+  const authManager = new AuthManager(userStore);
   const userManager = new UserManager(userStore);
 
   // Auth
@@ -33,8 +33,8 @@ const init = async () => {
     },
 
     validate: async (
-      request: Hapi.Request<Hapi.ReqRefDefaults>,
-      session: Cookie // Session object
+      request, //: Hapi.Request<Hapi.ReqRefDefaults>,
+      session: Cookie
     ) => {
       const user = await userManager.findOne({ userId: session.userId });
 
@@ -56,7 +56,7 @@ const init = async () => {
 
   // Routes
   await route.userRoutes.register(server, userManager);
-  await route.authRoutes.register(server, authMAnager, userManager);
+  await route.authRoutes.register(server, authManager, userManager);
 
   await server.start();
   console.log("Server running on %s", server.info.uri);
