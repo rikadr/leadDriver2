@@ -1,6 +1,6 @@
-import { notFound } from "boom";
 import { CarStore } from "../stores/car-store";
 import { Car } from "../classes/car";
+import { notFound } from "@hapi/boom";
 
 export class CarManager {
   constructor(private carStore: CarStore) {}

@@ -2317,12 +2317,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/boom@*":
-  version "7.3.3"
-  resolved "https://registry.npmjs.org/@types/boom/-/boom-7.3.3.tgz"
-  integrity sha512-PEYCW26A4hpu2SD9Dz+kd55WQg0HAGA1Uf4zTuNflIdZgMw/XGoOMPQKyjnbl7lVIRUmc+YpZHtwtgTwfPlF9g==
-
-"@types/boom@^7.3.3":
+"@types/boom@*", "@types/boom@^7.3.3":
   version "7.3.3"
   resolved "https://registry.yarnpkg.com/@types/boom/-/boom-7.3.3.tgz#bc923339698b4528e0a5afacecfbebe788b5e7ce"
   integrity sha512-PEYCW26A4hpu2SD9Dz+kd55WQg0HAGA1Uf4zTuNflIdZgMw/XGoOMPQKyjnbl7lVIRUmc+YpZHtwtgTwfPlF9g==
@@ -6833,6 +6828,11 @@ klona@^2.0.4, klona@^2.0.5:
   version "2.0.6"
   resolved "https://registry.npmjs.org/klona/-/klona-2.0.6.tgz"
   integrity sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==
+
+ky@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-1.0.1.tgz#3b167f0bf75097240ffc5505e6b4f7b3be8161d0"
+  integrity sha512-UvcwpQO0LOuZwG0Ti3VDo6w57KYt+r4bWEYlNaMt82hgyFtse86QtOGum1RzsZni31FndXQl6NvtDArfunt2JQ==
 
 language-subtag-registry@~0.3.2:
   version "0.3.22"

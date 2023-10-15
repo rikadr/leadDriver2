@@ -1,20 +1,14 @@
 import React from "react";
+import { LoginPage } from "./login/login-page";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <label htmlFor="username">Username</label>
-        <input type="text" id="username" />
-        ''
-        <label htmlFor="password">Password</label>
-        <input type="password" id="password" />
-        <button type="submit">Login</button>
-      </form>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <LoginPage />
+    </QueryClientProvider>
   );
 }
 

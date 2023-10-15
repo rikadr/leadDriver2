@@ -1,4 +1,3 @@
-import { user } from "@prisma/client";
 import { UserStore } from "../stores/user-store";
 import { notFound } from "@hapi/boom";
 import { User } from "../classes/user";
