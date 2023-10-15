@@ -14,18 +14,14 @@ export const register = async (
     handler: async (request, h, err) => {
       const payload = request.payload as SignupPayload;
 
-      console.log("signup payload", payload);
-
       const user = await authManager.signUp(payload);
-
-      console.log("signup user", user);
 
       const cookie: Cookie = {
         userId: user.id,
       };
 
       request.cookieAuth.set(cookie);
-      return "successful signup!! Welcome " + user;
+      return "successful signup!! Welcome " + user.name;
     },
     options: {
       auth: { mode: "try" },

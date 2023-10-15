@@ -3,11 +3,12 @@ import { UserStore } from "../stores/user-store";
 import { LoginPayload, SignupPayload } from "../types";
 import { compare, hash } from "bcrypt";
 import { badData, notFound } from "@hapi/boom";
+import { User } from "../classes/user";
 
 export class AuthManager {
   constructor(private userStore: UserStore) {}
 
-  async signUp(payload: SignupPayload): Promise<user> {
+  async signUp(payload: SignupPayload): Promise<User> {
     const existingUser = await this.userStore.findOneByEmail({
       email: payload.email,
     });
@@ -28,13 +29,13 @@ export class AuthManager {
   async authenticateUserAndPassword({
     email,
     password,
-  }: LoginPayload): Promise<user> {
+  }: LoginPayload): Promise<User> {
     try {
       const user = await this.userStore.findOneByEmail({ email });
       if (!user) {
         throw new Error();
       }
-      const passwordMatch = compare(password, user.passwordHash);
+      const passwordMatch = await compare(password, user.passwordHash);
       if (!passwordMatch) {
         throw new Error();
       }
