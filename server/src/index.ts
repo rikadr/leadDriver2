@@ -5,6 +5,8 @@ import { UserStore } from "./stores/user-store";
 import { UserManager } from "./store-managers/user-manager";
 import { Cookie, Credentials } from "./types";
 import { AuthManager } from "./store-managers/auth-manager";
+import { CarStore } from "./stores/car-store";
+import { CarManager } from "./store-managers/car-manager";
 
 const init = async () => {
   const server = Hapi.server({
@@ -16,10 +18,12 @@ const init = async () => {
 
   // Stores
   const userStore = new UserStore(prisma);
+  const carStore = new CarStore(prisma);
 
   // Managers
   const authManager = new AuthManager(userStore);
-  const userManager = new UserManager(userStore);
+  const userManager = new UserManager(userStore, carStore);
+  const carManager = new CarManager(carStore);
 
   // Auth
   await server.register(require("@hapi/cookie"));
@@ -32,10 +36,7 @@ const init = async () => {
       // ttl: 24 * 60 * 60 * 1000, // Set session to 1 day
     },
 
-    validate: async (
-      request, //: Hapi.Request<Hapi.ReqRefDefaults>,
-      session: Cookie
-    ) => {
+    validate: async (request, session: Cookie) => {
       const user = await userManager.findOne({ userId: session.userId });
 
       if (!user) {
@@ -55,8 +56,9 @@ const init = async () => {
   server.auth.default("login");
 
   // Routes
-  await route.userRoutes.register(server, userManager);
   await route.authRoutes.register(server, authManager, userManager);
+  await route.userRoutes.register(server, userManager);
+  await route.carRoutes.register(server, carManager);
 
   await server.start();
   console.log("Server running on %s", server.info.uri);

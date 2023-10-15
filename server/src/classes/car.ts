@@ -16,7 +16,6 @@ export class Car {
     return {
       id: this.id,
       model: this.model,
-      ownerId: this.ownerId,
     };
   }
 }

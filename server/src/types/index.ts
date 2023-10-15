@@ -29,6 +29,7 @@ export type UserDTO = {
   id: string;
   name: string;
   email: string;
+  cars: CarDTO[];
 };
 
 export type CreateUserPayload = {
@@ -43,7 +44,6 @@ export type CreateUserPayload = {
 export type CarDTO = {
   id: string;
   model: string;
-  ownerId: string;
 };
 
 export type CreateUCarPayload = {

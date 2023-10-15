@@ -1,7 +1,6 @@
 import { PrismaClient, user } from "@prisma/client";
 import { CreateUserPayload } from "../types";
 import { User } from "../classes/user";
-import { log } from "console";
 
 export class UserStore {
   constructor(private prismaClient: PrismaClient) {}
