@@ -36,6 +36,24 @@ export type CreateUserPayload = {
   email: string;
 };
 
+/**
+ * CAR TYPES
+ */
+
+export type CarDTO = {
+  id: string;
+  model: string;
+  ownerId: string;
+};
+
+export type CreateUCarPayload = {
+  model: string;
+  ownerId: string;
+};
+
+/**
+ * API TYPES
+ */
 export interface IApiResponse<T = unknown, E = unknown> {
   params?: Record<string, any>;
   data?: T;
