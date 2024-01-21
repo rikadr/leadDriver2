@@ -21,12 +21,23 @@ export const useSignupMutation = () => {
     },
   });
 };
+
 export const useLoginMutation = () => {
   return useMutation<LoginMutationResponse, Error, LoginCredentials, unknown>({
     mutationFn: (credentials: LoginCredentials) => {
       return httpClient("/api/login", {
         method: "POST",
         body: JSON.stringify(credentials),
+      }).json();
+    },
+  });
+};
+
+export const useLogoutMutation = () => {
+  return useMutation<LoginMutationResponse, Error, void, unknown>({
+    mutationFn: () => {
+      return httpClient("/api/logout", {
+        method: "POST",
       }).json();
     },
   });

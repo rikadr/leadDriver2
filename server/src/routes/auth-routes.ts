@@ -38,7 +38,7 @@ export const register = async (
     method: "POST",
     path: "/api/login",
     handler: async (request) => {
-      const payload = request.payload as LoginPayload;
+      const payload = JSON.parse(request.payload.toString()) as LoginPayload;
       const user = await authManager.authenticateUserAndPassword(payload);
 
       const cookie: Cookie = {
@@ -58,7 +58,7 @@ export const register = async (
     path: "/api/logout",
     handler: (request) => {
       request.cookieAuth.clear();
-      return "logged out, bye";
+      return { data: "logged out, bye" };
     },
   });
 
