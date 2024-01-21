@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { IApiResponse } from "../types";
-import { httpClient } from "../common/http-client";
+import { IApiResponse } from "../../types";
+import { httpClient } from "../../common/http-client";
 
 type SignupMutationResponse = IApiResponse<string>;
 type LoginMutationResponse = IApiResponse<string>;
