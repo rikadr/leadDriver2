@@ -12,6 +12,9 @@ const init = async () => {
   const server = Hapi.server({
     port: 3200,
     host: "localhost",
+    routes: {
+      cors: true, // TODO configure cors
+    },
   });
 
   const prisma = new PrismaClient();

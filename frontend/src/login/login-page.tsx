@@ -1,31 +1,47 @@
-import React from "react";
-import { useLoginMutation } from "./login-api";
+import React, { useEffect, useState } from "react";
+import {
+  useCheckLogin,
+  useLoginMutation,
+  useSignupMutation,
+} from "./login-api";
 
 export const LoginPage: React.FC = () => {
-  const [message, setMessage] = React.useState<string | null>(null);
-  const login = useLoginMutation();
+  const [message, setMessate] = useState<string>();
 
-  async function logTheIn() {
-    const result = await login.mutateAsync({
-      email: "rikard@mail.com",
-      password: "admin",
-    });
-    setMessage(result.data || null);
-  }
+  const checkLoginQuery = useCheckLogin();
+  const signupMutation = useSignupMutation();
+  const loginMutation = useLoginMutation();
+
+  useEffect(() => {
+    if (checkLoginQuery.data?.data) {
+      setMessate(checkLoginQuery.data?.data);
+    }
+  }, [checkLoginQuery.data?.data]);
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        logTheIn();
-      }}
-    >
-      <label htmlFor="username">Username</label>
-      <input type="text" id="username" />
-      <label htmlFor="password">Password</label>
-      <input type="password" id="password" />
-      <button type="submit">Login</button>
-      {message ? <p>{message}</p> : <p>No message eyt</p>}
-    </form>
+    <div>
+      <button
+        onClick={() =>
+          signupMutation.mutate({
+            name: "Rikard",
+            email: "rikard4@mail.com",
+            password: "admin",
+          })
+        }
+      >
+        Sign up
+      </button>
+      <button
+        onClick={() =>
+          loginMutation.mutate({
+            email: "rikard4@mail.com",
+            password: "admin",
+          })
+        }
+      >
+        Log in
+      </button>
+      <p>{message}</p>
+    </div>
   );
 };

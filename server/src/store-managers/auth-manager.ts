@@ -1,8 +1,7 @@
-import { user } from "@prisma/client";
 import { UserStore } from "../stores/user-store";
 import { LoginPayload, SignupPayload } from "../types";
 import { compare, hash } from "bcrypt";
-import { badData, notFound } from "@hapi/boom";
+import { badData, forbidden } from "@hapi/boom";
 import { User } from "../classes/user";
 
 export class AuthManager {
@@ -42,7 +41,7 @@ export class AuthManager {
 
       return user;
     } catch (err) {
-      throw notFound("Email or password is incorrect");
+      throw forbidden("Email or password is incorrect");
     }
   }
 }
