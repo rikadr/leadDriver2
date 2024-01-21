@@ -34,6 +34,8 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div>
+      <h1>Log in</h1>
+
       <form
         onSubmit={form.handleSubmit(handleLogin, (error) => console.log(error))}
       >
