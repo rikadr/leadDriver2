@@ -10,11 +10,6 @@ export const httpClient = ky.extend({
     afterResponse: [
       (_request, _options, response) => {
         if (response.status === 401) {
-          // TODO add inn redirect loop check?
-          // TODO(irek): I think that changing our backend responses
-          // to 403 solves this issue only partially.  What is some
-          // other response that comes not from our backend gives 401
-          // response code, hmm...
           try {
             const url = new URL("/login", window.location.href);
             url.searchParams.set(
