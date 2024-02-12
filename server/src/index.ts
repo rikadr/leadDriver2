@@ -3,10 +3,10 @@ import * as route from "./routes";
 import { PrismaClient } from "@prisma/client";
 import { UserStore } from "./stores/user-store";
 import { UserManager } from "./store-managers/user-manager";
-import { Cookie, Credentials } from "./types";
 import { AuthManager } from "./store-managers/auth-manager";
 import { CarStore } from "./stores/car-store";
 import { CarManager } from "./store-managers/car-manager";
+import { Cookie, Credentials } from "shared/types/auth-types";
 
 const init = async () => {
   const server = Hapi.server({
