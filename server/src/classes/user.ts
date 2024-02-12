@@ -1,6 +1,6 @@
 import { user } from "@prisma/client";
-import { UserDTO } from "../types";
 import { Car } from "./car";
+import { UserDTO } from "shared";
 
 export class User {
   id: string;
@@ -25,6 +25,7 @@ export class User {
       cars: this.cars.map((car) => car.toDTO()),
     };
   }
+
   addCars(cars: Car[]) {
     this.cars.push(...cars);
   }

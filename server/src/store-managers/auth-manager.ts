@@ -1,8 +1,8 @@
 import { UserStore } from "../stores/user-store";
-import { LoginPayload, SignupPayload } from "../types";
 import { compare, hash } from "bcrypt";
-import { badData, forbidden, unauthorized } from "@hapi/boom";
+import { badData, unauthorized } from "@hapi/boom";
 import { User } from "../classes/user";
+import { LoginPayload, SignupPayload } from "shared";
 
 export class AuthManager {
   constructor(private userStore: UserStore) {}

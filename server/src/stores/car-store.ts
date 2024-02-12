@@ -1,4 +1,4 @@
-import { PrismaClient, user } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Car } from "../classes/car";
 
 export class CarStore {

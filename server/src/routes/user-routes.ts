@@ -1,8 +1,6 @@
 import { Server } from "@hapi/hapi";
 import { UserManager } from "../store-managers/user-manager";
-import { Credentials } from "../types";
 import { getCredentials } from "./credential-utils";
-import { CarStore } from "../stores/car-store";
 
 export const register = async (server: Server, userManager: UserManager) => {
   server.route({

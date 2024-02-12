@@ -1,7 +1,7 @@
 import { Server } from "@hapi/hapi";
-import { Cookie, Credentials, LoginPayload, SignupPayload } from "../types";
 import { UserManager } from "../store-managers/user-manager";
 import { AuthManager } from "../store-managers/auth-manager";
+import { Cookie, Credentials, LoginPayload, SignupPayload } from "shared";
 
 export const register = async (
   server: Server,

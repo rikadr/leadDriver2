@@ -1,6 +1,6 @@
-import { PrismaClient, user } from "@prisma/client";
-import { CreateUserPayload } from "../types";
+import { PrismaClient } from "@prisma/client";
 import { User } from "../classes/user";
+import { CreateUserPayload } from "shared";
 
 export class UserStore {
   constructor(private prismaClient: PrismaClient) {}

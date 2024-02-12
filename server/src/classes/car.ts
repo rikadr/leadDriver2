@@ -1,5 +1,5 @@
 import { car } from "@prisma/client";
-import { CarDTO } from "../types";
+import { CarDTO } from "shared";
 
 export class Car {
   id: string;
