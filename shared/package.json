@@ -1,0 +1,12 @@
+{
+    "name": "shared",
+    "version": "1.0.0",
+    "description": "Shared types and utils for server and frontend",
+    "main": "index.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}

@@ -9,6 +9,7 @@
   "private": true,
   "workspaces": [
     "server",
-    "frontend"
+    "frontend",
+    "shared"
   ]
 }
