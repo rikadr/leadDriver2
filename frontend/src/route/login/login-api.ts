@@ -1,9 +1,8 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { httpClient } from "../../common/http-client";
-import { IApiResponse } from "shared/types/api-types";
+import { IApiResponse, LoginResponse } from "shared/types/api-types";
 
 type SignupMutationResponse = IApiResponse<string>;
-type LoginMutationResponse = IApiResponse<string>;
 type LoginCredentials = { email: string; password: string };
 
 export const useSignupMutation = () => {
@@ -23,23 +22,27 @@ export const useSignupMutation = () => {
 };
 
 export const useLoginMutation = () => {
-  return useMutation<LoginMutationResponse, Error, LoginCredentials, unknown>({
+  const queryClient = useQueryClient();
+  return useMutation<LoginResponse, Error, LoginCredentials, unknown>({
     mutationFn: (credentials: LoginCredentials) => {
       return httpClient("/api/login", {
         method: "POST",
         body: JSON.stringify(credentials),
       }).json();
     },
+    onSuccess: () => queryClient.invalidateQueries(),
   });
 };
 
 export const useLogoutMutation = () => {
-  return useMutation<LoginMutationResponse, Error, void, unknown>({
+  const queryClient = useQueryClient();
+  return useMutation<LoginResponse, Error, void, unknown>({
     mutationFn: () => {
       return httpClient("/api/logout", {
         method: "POST",
       }).json();
     },
+    onSuccess: () => queryClient.invalidateQueries(),
   });
 };
 

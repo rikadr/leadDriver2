@@ -1,13 +1,15 @@
 import { Server } from "@hapi/hapi";
-import { UserManager } from "../store-managers/user-manager";
 import { AuthManager } from "../store-managers/auth-manager";
-import { Cookie, Credentials, LoginPayload, SignupPayload } from "shared";
+import {
+  Cookie,
+  Credentials,
+  LoginPayload,
+  LoginResponse,
+  SignupPayload,
+} from "shared";
+import { getCredentials } from "./credential-utils";
 
-export const register = async (
-  server: Server,
-  authManager: AuthManager,
-  userManager: UserManager
-) => {
+export const register = async (server: Server, authManager: AuthManager) => {
   server.route({
     method: "POST",
     path: "/api/signup",
@@ -37,7 +39,7 @@ export const register = async (
   server.route({
     method: "POST",
     path: "/api/login",
-    handler: async (request) => {
+    handler: async (request): Promise<LoginResponse> => {
       const payload = JSON.parse(request.payload.toString()) as LoginPayload;
       const user = await authManager.authenticateUserAndPassword(payload);
 
@@ -46,7 +48,7 @@ export const register = async (
       };
       request.cookieAuth.set(cookie);
 
-      return { data: "Successful login as " + user.name + "!!" };
+      return { data: { message: "Successful login as " + user.name + "!!" } };
     },
     options: {
       auth: { mode: "try" },
@@ -66,7 +68,7 @@ export const register = async (
     method: "GET",
     path: "/api/check-login",
     handler: (request): { data: string } => {
-      const credentials = request.auth.credentials as Credentials;
+      const credentials = getCredentials(request);
 
       if (!credentials) {
         return { data: "No, you are not logged in" };

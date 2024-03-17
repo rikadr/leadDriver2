@@ -59,7 +59,7 @@ const init = async () => {
   server.auth.default("login");
 
   // Routes
-  await route.authRoutes.register(server, authManager, userManager);
+  await route.authRoutes.register(server, authManager);
   await route.userRoutes.register(server, userManager);
   await route.carRoutes.register(server, carManager);
 

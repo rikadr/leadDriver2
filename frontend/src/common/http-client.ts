@@ -9,7 +9,7 @@ export const httpClient = ky.extend({
   hooks: {
     afterResponse: [
       (_request, _options, response) => {
-        if (response.status === 401) {
+        if (response.status === 401 && !response.url.includes("/api/login")) {
           try {
             const url = new URL("/login", window.location.href);
             url.searchParams.set(
