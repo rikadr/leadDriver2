@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { httpClient } from "../../common/http-client";
 
 import {
-  IApiResponse,
+  CheckLoginResponse,
   LoginPayload,
   LoginResponse,
   SignupPayload,
@@ -48,7 +48,7 @@ export const useLogoutMutation = () => {
 };
 
 export const useCheckLogin = () => {
-  return useQuery<IApiResponse<string>>({
+  return useQuery<CheckLoginResponse>({
     queryKey: ["check-login"],
     queryFn: async () => {
       return httpClient("/api/check-login", {}).json();

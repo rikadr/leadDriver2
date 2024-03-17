@@ -4,6 +4,8 @@ import { Home } from "./route/home/home";
 import { MyProfile } from "./route/my-profile/my-profile";
 import { LayoutContainer } from "./layout/layout-container";
 import { LoginPage } from "./route/login/login-page";
+import { appUrl } from "./utils/app-url";
+import { Feed } from "./route/feed/feed";
 
 const queryClient = new QueryClient();
 
@@ -13,9 +15,10 @@ function App() {
       <BrowserRouter>
         <LayoutContainer>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/my-profile" element={<MyProfile />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path={appUrl["home"]} element={<Home />} />
+            <Route path={appUrl["feed"]} element={<Feed />} />
+            <Route path={appUrl["my-profile"]} element={<MyProfile />} />
+            <Route path={appUrl["login"]} element={<LoginPage />} />
           </Routes>
         </LayoutContainer>
       </BrowserRouter>

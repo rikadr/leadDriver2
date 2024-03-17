@@ -62,6 +62,7 @@ const init = async () => {
   await route.authRoutes.register(server, authManager);
   await route.userRoutes.register(server, userManager);
   await route.carRoutes.register(server, carManager);
+  await route.feedRoutes.register(server);
 
   await server.start();
   console.log("Server running on %s", server.info.uri);

@@ -1,6 +1,7 @@
 import { Server } from "@hapi/hapi";
 import { AuthManager } from "../store-managers/auth-manager";
 import {
+  CheckLoginResponse,
   Cookie,
   LoginPayload,
   LoginResponse,
@@ -67,17 +68,17 @@ export const register = async (server: Server, authManager: AuthManager) => {
   server.route({
     method: "GET",
     path: "/api/check-login",
-    handler: (request): { data: string } => {
-      const credentials = getCredentials(request);
-
-      if (!credentials) {
-        return { data: "No, you are not logged in" };
-      }
-
-      return { data: `Yes you are logged in as ${credentials.name}` };
-    },
     options: {
       auth: { mode: "optional" },
+    },
+    handler: async (request): Promise<CheckLoginResponse> => {
+      let isLoggedIn = false;
+      const credentials = getCredentials(request);
+      if (!!credentials) {
+        isLoggedIn = true;
+      }
+
+      return { data: { isLoggedIn } };
     },
   });
 };

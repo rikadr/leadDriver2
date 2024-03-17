@@ -1,12 +1,20 @@
 import React from "react";
-import { LoginStatus } from "../login/login-status";
+import { useCheckLogin } from "../login/login-api";
+import { Navigate } from "react-router-dom";
+import { appUrl } from "../../utils/app-url";
 
 export const Home: React.FC = () => {
+  const checkLoginQuery = useCheckLogin();
+  const isLoggedIn = checkLoginQuery.data?.data?.isLoggedIn;
+
+  if (isLoggedIn) {
+    return <Navigate to={appUrl["feed"]} />;
+  }
+
   return (
     <div>
       <h1>Home</h1>
-      Hallo from home
-      <LoginStatus />
+      <p>Read all about what LeadDriver is</p>
     </div>
   );
 };

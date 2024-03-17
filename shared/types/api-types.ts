@@ -8,8 +8,12 @@ export interface IApiResponse<T = unknown, E = unknown> {
   statusCode?: number;
 }
 
+export type LoginResponse = IApiResponse<{ message: string }>;
+export type SignupResponse = IApiResponse<{ message: string }>;
+
+export type CheckLoginResponse = IApiResponse<{ isLoggedIn: boolean }>;
+
 export type YouInitialsResponse = IApiResponse<{ initials?: string }>;
 export type YouResponse = IApiResponse<UserDTO>;
 
-export type LoginResponse = IApiResponse<{ message: string }>;
-export type SignupResponse = IApiResponse<{ message: string }>;
+export type FeedResponse = IApiResponse<{ posts: string[] }>;

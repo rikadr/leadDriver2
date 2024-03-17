@@ -14,7 +14,7 @@ export const NavMenu: React.FC = () => {
       >
         LeadDriver
       </Link>
-      <MenuItem appId="home" title="Home" />
+      <MenuItem appId="feed" title="Feed" />
       <MenuItem appId="my-profile" title="My profile" />
       <MenuItem appId="login" title="Login" />
       <div className="grow" />
