@@ -1,3 +1,4 @@
+import { CarDTO } from "./car-types";
 import { UserDTO } from "./user-types";
 
 export interface IApiResponse<T = unknown, E = unknown> {
@@ -17,3 +18,6 @@ export type YouInitialsResponse = IApiResponse<{ initials?: string }>;
 export type YouResponse = IApiResponse<UserDTO>;
 
 export type FeedResponse = IApiResponse<{ posts: string[] }>;
+
+export type AddCarPayload = { model: string };
+export type AddCarResponse = IApiResponse<CarDTO>;

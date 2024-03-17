@@ -1,21 +1,22 @@
 import { Server } from "@hapi/hapi";
 import { getCredentialsDefined } from "./credential-utils";
 import { CarManager } from "../store-managers/car-manager";
+import { AddCarPayload, AddCarResponse } from "shared";
 
 export const register = async (server: Server, carManager: CarManager) => {
   server.route({
     method: "POST",
     path: "/api/car",
-    handler: async (request, h, err) => {
+    handler: async (request): Promise<AddCarResponse> => {
       const credentials = getCredentialsDefined(request);
-      const payload = request.payload as { model: string };
+      const payload = JSON.parse(request.payload.toString()) as AddCarPayload;
 
       const car = await carManager.createCar({
         model: payload.model,
         ownerId: credentials.userId,
       });
 
-      return { data: `Added car ${car.model} to ${credentials.name}` };
+      return { data: car.toDTO() };
     },
   });
 };
