@@ -2,10 +2,10 @@ import { Server } from "@hapi/hapi";
 import { AuthManager } from "../store-managers/auth-manager";
 import {
   Cookie,
-  Credentials,
   LoginPayload,
   LoginResponse,
   SignupPayload,
+  SignupResponse,
 } from "shared";
 import { getCredentials } from "./credential-utils";
 
@@ -13,7 +13,7 @@ export const register = async (server: Server, authManager: AuthManager) => {
   server.route({
     method: "POST",
     path: "/api/signup",
-    handler: async (request) => {
+    handler: async (request): Promise<SignupResponse> => {
       const payload = JSON.parse(request.payload.toString()) as SignupPayload;
 
       const time = new Promise((res) => {
@@ -29,7 +29,7 @@ export const register = async (server: Server, authManager: AuthManager) => {
       };
 
       request.cookieAuth.set(cookie);
-      return { data: "successful signup!! Welcome " + user.name };
+      return { data: { message: "successful signup!! Welcome " + user.name } };
     },
     options: {
       auth: { mode: "try" },

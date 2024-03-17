@@ -1,30 +1,31 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { httpClient } from "../../common/http-client";
-import { IApiResponse, LoginResponse } from "shared/types/api-types";
 
-type SignupMutationResponse = IApiResponse<string>;
-type LoginCredentials = { email: string; password: string };
+import {
+  IApiResponse,
+  LoginPayload,
+  LoginResponse,
+  SignupPayload,
+  SignupResponse,
+} from "shared";
 
 export const useSignupMutation = () => {
-  return useMutation<
-    SignupMutationResponse,
-    Error,
-    LoginCredentials & { name: string },
-    unknown
-  >({
-    mutationFn: (credentials: LoginCredentials) => {
+  const queryClient = useQueryClient();
+  return useMutation<SignupResponse, Error, SignupPayload, unknown>({
+    mutationFn: (credentials: SignupPayload) => {
       return httpClient("/api/signup", {
         method: "POST",
         body: JSON.stringify(credentials),
       }).json();
     },
+    onSuccess: () => queryClient.invalidateQueries(),
   });
 };
 
 export const useLoginMutation = () => {
   const queryClient = useQueryClient();
-  return useMutation<LoginResponse, Error, LoginCredentials, unknown>({
-    mutationFn: (credentials: LoginCredentials) => {
+  return useMutation<LoginResponse, Error, LoginPayload, unknown>({
+    mutationFn: (credentials: LoginPayload) => {
       return httpClient("/api/login", {
         method: "POST",
         body: JSON.stringify(credentials),

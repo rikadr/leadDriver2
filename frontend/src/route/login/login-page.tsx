@@ -1,70 +1,27 @@
 import React, { useState } from "react";
-import { useLoginMutation, useLogoutMutation } from "./login-api";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { LoginForm } from "./login-form";
+import { SignupForm } from "./sign-up-form";
 
 export const LoginPage: React.FC = () => {
-  const [message, setMessage] = useState<string>();
-
-  const loginMutation = useLoginMutation();
-  const logoutMutation = useLogoutMutation();
-
-  const form = useForm<{ email: string; password: string }>();
-
-  const handleLogin: SubmitHandler<{
-    email: string;
-    password: string;
-  }> = async (data) => {
-    const result = await loginMutation.mutateAsync(data);
-    console.log("result", result.data);
-    if (result.data) {
-      setMessage(result.data.message);
-    } else {
-      setMessage("Unsuccessful login");
-    }
-  };
+  const [isLogin, setIsLogin] = useState(true);
 
   return (
-    <div>
-      <form
-        onSubmit={form.handleSubmit(handleLogin, (error) => console.log(error))}
-        className="flex flex-col gap-4 w-96 m-auto"
-      >
-        <h1>Log in</h1>
-        <input type="email" placeholder="E-mail" {...form.register("email")} />
-        <input
-          type="password"
-          placeholder="Password"
-          {...form.register("password")}
-        />
-        {message && <p>{message}</p>}
-        <div className="flex gap-2">
+    <div className="space-y-4 mt-4">
+      <div className="flex flex-col items-center">
+        <p>{isLogin ? "Log in" : " Sign up"}</p>
+        <p className="text-gray-500 text-sm">
+          {isLogin ? "No account?" : "Already have an account?"} Go here to{" "}
           <button
-            className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-4 rounded-full w-1/2"
-            type="submit"
+            className="underline hover:text-sky-500 transition-colors duration-200"
+            onClick={() => setIsLogin(!isLogin)}
           >
-            Log in
+            {isLogin ? "Sign up" : "Log in"}
           </button>
-          <button
-            className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-4 rounded-full w-1/2"
-            type="button"
-            onClick={() =>
-              loginMutation.mutate({
-                email: "rikard4@mail.com",
-                password: "admin",
-              })
-            }
-          >
-            Log in as Rikard4
-          </button>
-        </div>
-        <button
-          className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-4 rounded-full"
-          type="button"
-          onClick={async () => logoutMutation.mutate()}
-        >
-          Log out
-        </button>
-      </form>
+          !
+        </p>
+      </div>
+
+      {isLogin ? <LoginForm /> : <SignupForm />}
     </div>
   );
 };

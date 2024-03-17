@@ -1,6 +1,6 @@
 import { Server } from "@hapi/hapi";
 import { UserManager } from "../store-managers/user-manager";
-import { getCredentials, getCredentialsDefined } from "./credential-utils";
+import { getCredentialsDefined } from "./credential-utils";
 import { YouResponse, YouInitialsResponse } from "shared";
 
 export const register = async (server: Server, userManager: UserManager) => {

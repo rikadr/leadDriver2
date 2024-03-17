@@ -1,5 +1,5 @@
 import { Server } from "@hapi/hapi";
-import { getCredentials } from "./credential-utils";
+import { getCredentialsDefined } from "./credential-utils";
 import { CarManager } from "../store-managers/car-manager";
 
 export const register = async (server: Server, carManager: CarManager) => {
@@ -7,7 +7,7 @@ export const register = async (server: Server, carManager: CarManager) => {
     method: "POST",
     path: "/api/car",
     handler: async (request, h, err) => {
-      const credentials = getCredentials(request);
+      const credentials = getCredentialsDefined(request);
       const payload = request.payload as { model: string };
 
       const car = await carManager.createCar({

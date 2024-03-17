@@ -7,6 +7,14 @@ export const MyProfile: React.FC = () => {
     <div>
       <h1>My profile</h1>
       <pre>{JSON.stringify(youQuery.data?.data, null, 2)}</pre>
+      <pre>{JSON.stringify(youQuery.data?.data, null, 2)}</pre>
+      <pre>{JSON.stringify(youQuery.data?.data, null, 2)}</pre>
+      <pre>{JSON.stringify(youQuery.data?.data, null, 2)}</pre>
+      <pre>{JSON.stringify(youQuery.data?.data, null, 2)}</pre>
+      <pre>{JSON.stringify(youQuery.data?.data, null, 2)}</pre>
+      <pre>{JSON.stringify(youQuery.data?.data, null, 2)}</pre>
+      <pre>{JSON.stringify(youQuery.data?.data, null, 2)}</pre>
+      <pre>{JSON.stringify(youQuery.data?.data, null, 2)}</pre>
     </div>
   );
 };

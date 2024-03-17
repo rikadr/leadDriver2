@@ -1,10 +1,9 @@
-import React from "react";
-import { LoginPage } from "./route/login/login-page";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./route/home/home";
 import { MyProfile } from "./route/my-profile/my-profile";
 import { LayoutContainer } from "./layout/layout-container";
+import { LoginPage } from "./route/login/login-page";
 
 const queryClient = new QueryClient();
 
