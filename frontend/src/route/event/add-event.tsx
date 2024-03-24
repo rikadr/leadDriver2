@@ -12,9 +12,8 @@ export const AddEvent: React.FC = () => {
 
   const handleSubmit: SubmitHandler<AddEventPayload> = async (data) => {
     const result = await addEventMutation.mutateAsync(data);
-    console.log("result", result.data);
     if (!result.error) {
-      navigate(appUrl["my-profile"]);
+      navigate(appUrl["events"]);
     }
   };
 

@@ -19,13 +19,13 @@ export const MyProfile: React.FC = () => {
         <p className="italic text-gray-500">{youQuery.data.data.email}</p>
       </div>
       <div className="flex gap-4">
-        <h1 className="text-lg">Cars</h1>
+        <h1 className="text-lg">My cars</h1>
         <button
           className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-3 rounded-full "
           type="button"
           onClick={() => navigate(appUrl["car-add"])}
         >
-          +
+          Add car +
         </button>
       </div>
       {youQuery.data.data.cars.map((car) => (

@@ -15,7 +15,6 @@ export const AddCar: React.FC = () => {
 
   const handleLogin: SubmitHandler<AddCarPayload> = async (data) => {
     const result = await addCarMutation.mutateAsync(data);
-    console.log("result", result.data);
     if (result.data) {
       navigate(appUrl["my-profile"]);
     } else {

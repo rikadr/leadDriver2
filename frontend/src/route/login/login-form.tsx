@@ -15,7 +15,6 @@ export const LoginForm: React.FC = () => {
     password: string;
   }> = async (data) => {
     const result = await loginMutation.mutateAsync(data);
-    console.log("result", result.data);
     if (result.data) {
       setMessage(result.data.message);
     } else {

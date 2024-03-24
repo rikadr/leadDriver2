@@ -12,7 +12,6 @@ export const SignupForm: React.FC = () => {
 
   const handleLogin: SubmitHandler<SignupPayload> = async (data) => {
     const result = await signUpMutation.mutateAsync(data);
-    console.log("result", result.data);
     if (result.data) {
       setMessage(result.data.message);
     } else {
