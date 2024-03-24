@@ -20,7 +20,7 @@ export const appUrl: Record<AppId, string> = {
 export function getAppUrl(id: AppId | AppId[], variable?: string): string {
   let output: string;
   if (Array.isArray(id)) {
-    output = id.map((i) => appUrl[i]).join("/") + variable;
+    output = id.map((i) => appUrl[i]).join("/");
   } else {
     output = appUrl[id];
   }

@@ -23,7 +23,7 @@ export const MyProfile: React.FC = () => {
         <button
           className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-3 rounded-full "
           type="button"
-          onClick={() => navigate(getAppUrl("car", "add"))}
+          onClick={() => navigate(getAppUrl(["car", "add"]))}
         >
           Add car +
         </button>
