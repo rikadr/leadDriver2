@@ -29,6 +29,20 @@ export class EventStore {
     return event ? new Event(event) : null;
   }
 
+  async getEvents() {
+    const events: dbEventInclude[] = await this.prismaClient.event.findMany({
+      include: {
+        eventAttendce: {
+          include: {
+            user: true,
+            car: true,
+          },
+        },
+      },
+    });
+    return events.map((event) => new Event(event));
+  }
+
   async attendEvent({
     eventId,
     userId,

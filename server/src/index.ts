@@ -30,7 +30,7 @@ const init = async () => {
   const authManager = new AuthManager(userStore);
   const userManager = new UserManager(userStore, carStore);
   const carManager = new CarManager(carStore);
-  const eventManager = new EventManager(eventStore);
+  const eventManager = new EventManager(eventStore, carStore);
 
   // Auth
   await server.register(require("@hapi/cookie"));

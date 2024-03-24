@@ -5,6 +5,7 @@ import {
   AttendEventPayload,
   GetEventPayload,
   GetEventResponse,
+  GetEventsResponse,
 } from "shared";
 import { EventManager } from "../store-managers/event-manager";
 import { getCredentialsDefined } from "./credential-utils";
@@ -17,7 +18,6 @@ export const register = async (server: Server, eventManager: EventManager) => {
       description: "Get an event",
       auth: { mode: "required" },
       handler: async (request): Promise<GetEventResponse> => {
-        //   const credentials = getCredentialsDefined(request);
         const payload = JSON.parse(
           request.payload.toString()
         ) as GetEventPayload;
@@ -30,13 +30,25 @@ export const register = async (server: Server, eventManager: EventManager) => {
   });
 
   server.route({
+    method: "GET",
+    path: "/api/events",
+    options: {
+      description: "Get all events",
+      auth: { mode: "required" },
+      handler: async (): Promise<GetEventsResponse> => {
+        const events = await eventManager.getEvents();
+        return { data: events.map((e) => e.toDTO()) };
+      },
+    },
+  });
+
+  server.route({
     method: "POST",
     path: "/api/event",
     options: {
       description: "Create a new event",
       auth: { mode: "required" },
       handler: async (request): Promise<AddEventResponse> => {
-        //   const credentials = getCredentialsDefined(request);
         const payload = JSON.parse(
           request.payload.toString()
         ) as AddEventPayload;
@@ -52,7 +64,7 @@ export const register = async (server: Server, eventManager: EventManager) => {
 
   server.route({
     method: "POST",
-    path: "/api/event",
+    path: "/api/event/attend",
     options: {
       description: "Attend an event",
       auth: { mode: "required" },

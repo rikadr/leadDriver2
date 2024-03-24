@@ -1,7 +1,6 @@
-import { badData, notFound } from "boom";
-import { Event } from "../classes/event";
 import { EventStore } from "../stores/event-store";
 import { CarStore } from "../stores/car-store";
+import { badData, notFound } from "@hapi/boom";
 
 export class EventManager {
   constructor(private eventStore: EventStore, private carStore: CarStore) {}
@@ -17,6 +16,11 @@ export class EventManager {
       throw notFound("Event not found");
     }
     return event;
+  }
+
+  async getEvents() {
+    const events = await this.eventStore.getEvents();
+    return events;
   }
 
   async attendEvent({
