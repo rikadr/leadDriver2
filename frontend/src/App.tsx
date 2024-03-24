@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Home } from "./route/home/home";
 import { MyProfile } from "./route/my-profile/my-profile";
 import { LayoutContainer } from "./layout/layout-container";
@@ -21,6 +21,10 @@ function App() {
             <Route path={appUrl["my-profile"]} element={<MyProfile />} />
             <Route path={appUrl["car-add"]} element={<AddCar />} />
             <Route path={appUrl["events"]} element={<Events />} />
+            <Route path={appUrl["event"]}>
+              <Route index element={<Navigate to={appUrl["events"]} />} />
+              <Route path=":id" element={<AddEvent />} />
+            </Route>
             <Route path={appUrl["event-add"]} element={<AddEvent />} />
             <Route path={appUrl["login"]} element={<LoginPage />} />
           </Routes>
