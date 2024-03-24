@@ -5,7 +5,6 @@ import { MyProfile } from "./route/my-profile/my-profile";
 import { LayoutContainer } from "./layout/layout-container";
 import { LoginPage } from "./route/login/login-page";
 import { appUrl } from "./utils/app-url";
-import { Feed } from "./route/feed/feed";
 import { AddCar } from "./route/cars/add-car";
 import { AddEvent } from "./route/event/add-event";
 import { Events } from "./route/event/events";
@@ -19,7 +18,6 @@ function App() {
         <LayoutContainer>
           <Routes>
             <Route path={appUrl["home"]} element={<Home />} />
-            <Route path={appUrl["feed"]} element={<Feed />} />
             <Route path={appUrl["my-profile"]} element={<MyProfile />} />
             <Route path={appUrl["car-add"]} element={<AddCar />} />
             <Route path={appUrl["events"]} element={<Events />} />

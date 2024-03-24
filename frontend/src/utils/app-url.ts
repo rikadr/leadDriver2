@@ -1,6 +1,5 @@
 export type AppId =
   | "home"
-  | "feed"
   | "my-profile"
   | "car-add"
   | "events"
@@ -10,7 +9,6 @@ export type AppId =
 
 export const appUrl: Record<AppId, string> = {
   home: "/",
-  feed: "/feed",
   "my-profile": "/my-profile",
   "car-add": "/car/add",
   events: "/events",

@@ -8,7 +8,7 @@ export const Home: React.FC = () => {
   const isLoggedIn = checkLoginQuery.data?.data?.isLoggedIn;
 
   if (isLoggedIn) {
-    return <Navigate to={appUrl["feed"]} />;
+    return <Navigate to={appUrl["events"]} />;
   }
 
   return (

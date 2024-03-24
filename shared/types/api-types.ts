@@ -18,8 +18,6 @@ export type CheckLoginResponse = IApiResponse<{ isLoggedIn: boolean }>;
 export type YouInitialsResponse = IApiResponse<{ initials?: string }>;
 export type YouResponse = IApiResponse<UserDTO>;
 
-export type FeedResponse = IApiResponse<{ posts: string[] }>;
-
 export type AddCarPayload = { model: string };
 export type AddCarResponse = IApiResponse<CarDTO>;
 
