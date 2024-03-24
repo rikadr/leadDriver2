@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { appUrl } from "../../utils/app-url";
+import { getAppUrl } from "../../utils/app-url";
 import { useEvents } from "../event/event-api";
 
 export const Events: React.FC = () => {
@@ -19,7 +19,7 @@ export const Events: React.FC = () => {
         <button
           className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-3 rounded-full "
           type="button"
-          onClick={() => navigate(appUrl["event-add"])}
+          onClick={() => navigate(getAppUrl(["event", "add"]))}
         >
           Add event +
         </button>
@@ -28,7 +28,7 @@ export const Events: React.FC = () => {
         {eventsQuery.data?.data?.map((event) => (
           <Link
             key={event.id}
-            to={appUrl["event"] + "/" + event.id}
+            to={getAppUrl("event", event.id)}
             className="p-2 m-2 w-full bg-sky-200 hover:bg-sky-100 transition-colors duration-200 cursor-pointer"
           >
             Name: {event.name}, {event.attendence.length} attendees.

@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AddCarPayload } from "shared";
 import { useAddCarMutation } from "./cars-api";
 import { useNavigate } from "react-router-dom";
-import { appUrl } from "../../utils/app-url";
+import { getAppUrl } from "../../utils/app-url";
 
 export const AddCar: React.FC = () => {
   const [message, setMessage] = useState<string>();
@@ -16,7 +16,7 @@ export const AddCar: React.FC = () => {
   const handleLogin: SubmitHandler<AddCarPayload> = async (data) => {
     const result = await addCarMutation.mutateAsync(data);
     if (result.data) {
-      navigate(appUrl["my-profile"]);
+      navigate(getAppUrl("my-profile"));
     } else {
       setMessage("Unable to add car...");
     }

@@ -19,13 +19,16 @@ function App() {
           <Routes>
             <Route path={appUrl["home"]} element={<Home />} />
             <Route path={appUrl["my-profile"]} element={<MyProfile />} />
-            <Route path={appUrl["car-add"]} element={<AddCar />} />
+            <Route path={appUrl["car"]}>
+              <Route index element={<Navigate to={appUrl["my-profile"]} />} />
+              <Route path={appUrl["add"]} element={<AddCar />} />
+            </Route>
             <Route path={appUrl["events"]} element={<Events />} />
             <Route path={appUrl["event"]}>
               <Route index element={<Navigate to={appUrl["events"]} />} />
               <Route path=":id" element={<AddEvent />} />
+              <Route path={appUrl["add"]} element={<AddEvent />} />
             </Route>
-            <Route path={appUrl["event-add"]} element={<AddEvent />} />
             <Route path={appUrl["login"]} element={<LoginPage />} />
           </Routes>
         </LayoutContainer>

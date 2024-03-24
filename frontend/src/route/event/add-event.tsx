@@ -2,7 +2,7 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AddEventPayload } from "shared";
 import { useNavigate } from "react-router-dom";
-import { appUrl } from "../../utils/app-url";
+import { getAppUrl } from "../../utils/app-url";
 import { useAddEventMutation } from "./event-api";
 
 export const AddEvent: React.FC = () => {
@@ -13,7 +13,7 @@ export const AddEvent: React.FC = () => {
   const handleSubmit: SubmitHandler<AddEventPayload> = async (data) => {
     const result = await addEventMutation.mutateAsync(data);
     if (!result.error) {
-      navigate(appUrl["events"]);
+      navigate(getAppUrl("events"));
     }
   };
 

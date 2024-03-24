@@ -1,7 +1,7 @@
 import React from "react";
 import { useYou } from "./my-profile-api";
 import { useNavigate } from "react-router-dom";
-import { appUrl } from "../../utils/app-url";
+import { getAppUrl } from "../../utils/app-url";
 
 export const MyProfile: React.FC = () => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ export const MyProfile: React.FC = () => {
         <button
           className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-3 rounded-full "
           type="button"
-          onClick={() => navigate(appUrl["car-add"])}
+          onClick={() => navigate(getAppUrl("car", "add"))}
         >
           Add car +
         </button>
