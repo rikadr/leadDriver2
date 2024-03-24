@@ -28,3 +28,5 @@ export type GetEventResponse = IApiResponse<EventDTO>;
 
 export type AddEventPayload = { name: string };
 export type AddEventResponse = IApiResponse<{ eventId: string }>;
+
+export type AttendEventPayload = { eventId: string; carId: string };
