@@ -8,6 +8,7 @@ import { appUrl } from "./utils/app-url";
 import { AddCar } from "./route/cars/add-car";
 import { AddEvent } from "./route/event/add-event";
 import { Events } from "./route/event/events";
+import { Event } from "./route/event/event";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +27,7 @@ function App() {
             <Route path={appUrl["events"]} element={<Events />} />
             <Route path={appUrl["event"]}>
               <Route index element={<Navigate to={appUrl["events"]} />} />
-              <Route path=":id" element={<AddEvent />} />
+              <Route path=":id" element={<Event />} />
               <Route path={appUrl["add"]} element={<AddEvent />} />
             </Route>
             <Route path={appUrl["login"]} element={<LoginPage />} />

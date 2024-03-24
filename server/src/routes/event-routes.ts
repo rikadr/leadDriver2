@@ -18,12 +18,8 @@ export const register = async (server: Server, eventManager: EventManager) => {
       description: "Get an event",
       auth: { mode: "required" },
       handler: async (request): Promise<GetEventResponse> => {
-        const payload = JSON.parse(
-          request.payload.toString()
-        ) as GetEventPayload;
-
-        const event = await eventManager.getEventById(payload.eventId);
-
+        const { eventId } = request.query as GetEventPayload;
+        const event = await eventManager.getEventById(eventId);
         return { data: event.toDTO() };
       },
     },

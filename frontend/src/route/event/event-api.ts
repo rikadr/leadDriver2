@@ -1,5 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { AddEventPayload, AddEventResponse, GetEventsResponse } from "shared";
+import {
+  AddEventPayload,
+  AddEventResponse,
+  GetEventResponse,
+  GetEventsResponse,
+} from "shared";
 import { httpClient } from "../../common/http-client";
 
 export const useAddEventMutation = () => {
@@ -23,5 +28,19 @@ export const useEvents = () => {
     },
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,
+  });
+};
+
+export const useEvent = (eventId?: string) => {
+  return useQuery<GetEventResponse>({
+    queryKey: ["event", eventId],
+    queryFn: async () => {
+      return httpClient("/api/event", {
+        searchParams: eventId ? { eventId } : {},
+      }).json();
+    },
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+    enabled: !!eventId,
   });
 };
