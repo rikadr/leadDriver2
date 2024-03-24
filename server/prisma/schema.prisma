@@ -8,16 +8,34 @@ datasource db {
 }
 
 model user {
-  id           String @id @default(uuid())
-  email        String @unique
-  passwordHash String
-  name         String
-  car          car[]
+  id            String          @id @default(uuid())
+  email         String          @unique
+  passwordHash  String
+  name          String
+  car           car[]
+  eventAttendce eventAttendce[]
 }
 
 model car {
+  id            String          @id @default(uuid())
+  model         String
+  ownerId       String
+  owner         user            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  eventAttendce eventAttendce[]
+}
+
+model event {
+  id            String          @id @default(uuid())
+  name          String
+  eventAttendce eventAttendce[]
+}
+
+model eventAttendce {
   id      String @id @default(uuid())
-  model   String
-  ownerId String
-  owner   user   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  eventId String
+  userId  String
+  carId   String
+  event   event  @relation(fields: [eventId], references: [id])
+  user    user   @relation(fields: [userId], references: [id])
+  car     car    @relation(fields: [carId], references: [id])
 }
