@@ -23,13 +23,16 @@ export const MyProfile: React.FC = () => {
         <button
           className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-3 rounded-full "
           type="button"
-          onClick={() => navigate(appUrl["cars-add"])}
+          onClick={() => navigate(appUrl["car-add"])}
         >
           +
         </button>
       </div>
       {youQuery.data.data.cars.map((car) => (
-        <div className="p-2 m-2 bg-sky-200 hover:bg-sky-100 transition-colors duration-200 cursor-pointer">
+        <div
+          key={car.id}
+          className="p-2 m-2 bg-sky-200 hover:bg-sky-100 transition-colors duration-200 cursor-pointer"
+        >
           Model: {car.model}
         </div>
       ))}
