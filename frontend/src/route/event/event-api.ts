@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   AddEventPayload,
   AddEventResponse,
+  AttendEventPayload,
   GetEventResponse,
   GetEventsResponse,
 } from "shared";
@@ -12,6 +13,19 @@ export const useAddEventMutation = () => {
   return useMutation<AddEventResponse, Error, AddEventPayload, unknown>({
     mutationFn: (payload) => {
       return httpClient("/api/event", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      }).json();
+    },
+    onSuccess: () => queryClient.invalidateQueries(),
+  });
+};
+
+export const useAttendEventMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation<unknown, Error, AttendEventPayload, unknown>({
+    mutationFn: (payload) => {
+      return httpClient("/api/event/attend", {
         method: "POST",
         body: JSON.stringify(payload),
       }).json();

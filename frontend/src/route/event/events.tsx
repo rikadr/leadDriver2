@@ -31,7 +31,8 @@ export const Events: React.FC = () => {
             to={getAppUrl("event", event.id)}
             className="p-2 m-2 w-full bg-sky-200 hover:bg-sky-100 transition-colors duration-200 cursor-pointer"
           >
-            Name: {event.name}, {event.attendence.length} attendees.
+            {event.name}, {event.attendence.length} attendee
+            {event.attendence.length !== 1 ? "s" : ""}.
           </Link>
         ))}
       </div>
