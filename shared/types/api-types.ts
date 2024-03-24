@@ -1,4 +1,5 @@
 import { CarDTO } from "./car-types";
+import { EventDTO } from "./event-types";
 import { UserDTO } from "./user-types";
 
 export interface IApiResponse<T = unknown, E = unknown> {
@@ -21,3 +22,9 @@ export type FeedResponse = IApiResponse<{ posts: string[] }>;
 
 export type AddCarPayload = { model: string };
 export type AddCarResponse = IApiResponse<CarDTO>;
+
+export type GetEventPayload = { eventId: string };
+export type GetEventResponse = IApiResponse<EventDTO>;
+
+export type AddEventPayload = { name: string };
+export type AddEventResponse = IApiResponse<{ eventId: string }>;

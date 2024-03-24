@@ -7,6 +7,8 @@ import { AuthManager } from "./store-managers/auth-manager";
 import { CarStore } from "./stores/car-store";
 import { CarManager } from "./store-managers/car-manager";
 import { Cookie, Credentials } from "shared/types/auth-types";
+import { EventManager } from "./store-managers/event-manager";
+import { EventStore } from "./stores/event-store";
 
 const init = async () => {
   const server = Hapi.server({
@@ -22,11 +24,13 @@ const init = async () => {
   // Stores
   const userStore = new UserStore(prisma);
   const carStore = new CarStore(prisma);
+  const eventStore = new EventStore(prisma);
 
   // Managers
   const authManager = new AuthManager(userStore);
   const userManager = new UserManager(userStore, carStore);
   const carManager = new CarManager(carStore);
+  const eventManager = new EventManager(eventStore);
 
   // Auth
   await server.register(require("@hapi/cookie"));
@@ -62,6 +66,7 @@ const init = async () => {
   await route.authRoutes.register(server, authManager);
   await route.userRoutes.register(server, userManager);
   await route.carRoutes.register(server, carManager);
+  await route.eventRoutes.register(server, eventManager);
   await route.feedRoutes.register(server);
 
   await server.start();
