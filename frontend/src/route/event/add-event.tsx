@@ -13,7 +13,7 @@ export const AddEvent: React.FC = () => {
   const handleSubmit: SubmitHandler<AddEventPayload> = async (data) => {
     const result = await addEventMutation.mutateAsync(data);
     if (!result.error) {
-      navigate(getAppUrl("events"));
+      navigate(getAppUrl(["event"], result.data?.eventId));
     }
   };
 
