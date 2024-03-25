@@ -22,10 +22,19 @@ export type AddCarPayload = { model: string };
 export type AddCarResponse = IApiResponse<CarDTO>;
 
 export type GetEventPayload = { eventId: string };
-export type GetEventResponse = IApiResponse<EventDTO>;
-export type GetEventsResponse = IApiResponse<EventDTO[]>;
+export type GetEventResponse = IApiResponse<{
+  event: EventDTO;
+  youAreAttending: boolean;
+}>;
+export type GetEventsResponse = IApiResponse<
+  {
+    event: EventDTO;
+    youAreAttending: boolean;
+  }[]
+>;
 
 export type AddEventPayload = { name: string };
 export type AddEventResponse = IApiResponse<{ eventId: string }>;
 
 export type AttendEventPayload = { eventId: string; carId: string };
+export type RevokeAttendenceEventPayload = { eventId: string };

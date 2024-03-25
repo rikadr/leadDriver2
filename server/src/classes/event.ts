@@ -21,6 +21,10 @@ export class Event {
     });
   }
 
+  userIsAttending(userId: string): boolean {
+    return !!this.eventAttendce.some((attendee) => attendee.user.id === userId);
+  }
+
   toDTO(): EventDTO {
     return {
       id: this.id,

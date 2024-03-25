@@ -43,6 +43,27 @@ export class EventStore {
     return events.map((event) => new Event(event));
   }
 
+  async getEventsByUserAttendee(userId: string) {
+    const events: dbEventInclude[] = await this.prismaClient.event.findMany({
+      where: { eventAttendce: { some: { userId } } },
+      include: {
+        eventAttendce: {
+          include: {
+            user: true,
+            car: true,
+          },
+        },
+      },
+    });
+    return events.map((event) => new Event(event));
+  }
+
+  async getEventAttendence(eventId: string, userId: string) {
+    return this.prismaClient.eventAttendce.findFirst({
+      where: { eventId, userId },
+    });
+  }
+
   async attendEvent({
     eventId,
     userId,
@@ -58,6 +79,11 @@ export class EventStore {
         userId,
         carId,
       },
+    });
+  }
+  async revokeAttendence({ eventAttendenceId }: { eventAttendenceId: string }) {
+    return await this.prismaClient.eventAttendce.deleteMany({
+      where: { id: eventAttendenceId },
     });
   }
 }

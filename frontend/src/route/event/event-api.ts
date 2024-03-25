@@ -5,6 +5,7 @@ import {
   AttendEventPayload,
   GetEventResponse,
   GetEventsResponse,
+  RevokeAttendenceEventPayload,
 } from "shared";
 import { httpClient } from "../../common/http-client";
 
@@ -33,12 +34,35 @@ export const useAttendEventMutation = () => {
     onSuccess: () => queryClient.invalidateQueries(),
   });
 };
+export const useRevokeAttendenceEventMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation<unknown, Error, RevokeAttendenceEventPayload, unknown>({
+    mutationFn: (payload) => {
+      return httpClient("/api/event/attend", {
+        method: "DELETE",
+        body: JSON.stringify(payload),
+      }).json();
+    },
+    onSuccess: () => queryClient.invalidateQueries(),
+  });
+};
 
 export const useEvents = () => {
   return useQuery<GetEventsResponse>({
     queryKey: ["events"],
     queryFn: async () => {
       return httpClient("/api/events", {}).json();
+    },
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+  });
+};
+
+export const useEventsYouAttend = () => {
+  return useQuery<GetEventsResponse>({
+    queryKey: ["events-attend"],
+    queryFn: async () => {
+      return httpClient("/api/events/attend", {}).json();
     },
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,

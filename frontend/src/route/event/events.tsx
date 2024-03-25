@@ -27,12 +27,13 @@ export const Events: React.FC = () => {
       <div className="flex flex-col">
         {eventsQuery.data?.data?.map((event) => (
           <Link
-            key={event.id}
-            to={getAppUrl("event", event.id)}
+            key={event.event.id}
+            to={getAppUrl("event", event.event.id)}
             className="p-2 m-2 w-full bg-sky-200 hover:bg-sky-100 transition-colors duration-200 cursor-pointer"
           >
-            {event.name}, {event.attendence.length} attendee
-            {event.attendence.length !== 1 ? "s" : ""}.
+            {event.event.name}, {event.event.attendence.length} attendee
+            {event.event.attendence.length !== 1 ? "s" : ""}.{" "}
+            {event.youAreAttending && "You are attending!"}
           </Link>
         ))}
       </div>

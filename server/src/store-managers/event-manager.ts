@@ -23,6 +23,11 @@ export class EventManager {
     return events;
   }
 
+  async getEventsByUserAttendee(userId: string) {
+    const events = await this.eventStore.getEventsByUserAttendee(userId);
+    return events;
+  }
+
   async attendEvent({
     eventId,
     userId,
@@ -49,5 +54,25 @@ export class EventManager {
     }
 
     await this.eventStore.attendEvent({ eventId, userId, carId });
+  }
+
+  async revokeAttendence({
+    userId,
+    eventId,
+  }: {
+    userId: string;
+    eventId: string;
+  }) {
+    const attendence = await this.eventStore.getEventAttendence(
+      eventId,
+      userId
+    );
+    if (!attendence) {
+      throw badData("User is not attending this event");
+    }
+
+    await this.eventStore.revokeAttendence({
+      eventAttendenceId: attendence.id,
+    });
   }
 }
