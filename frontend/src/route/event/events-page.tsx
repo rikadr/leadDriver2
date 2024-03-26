@@ -15,7 +15,7 @@ export const EventsPage: React.FC = () => {
     return <div>No data</div>;
   }
   return (
-    <div className="p-4 space-y-4">
+    <div className="space-y-4">
       <div className="flex gap-4">
         <h1 className="text-lg">All events</h1>
         <button

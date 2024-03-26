@@ -20,7 +20,7 @@ export const MyProfile: React.FC = () => {
     return <div>No data</div>;
   }
   return (
-    <div className="p-4 space-y-4">
+    <div className="space-y-4">
       <div>
         <h1>{youQuery.data.data.name}</h1>
         <p className="italic text-gray-500">{youQuery.data.data.email}</p>

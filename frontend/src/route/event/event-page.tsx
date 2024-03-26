@@ -13,7 +13,7 @@ export const EventPage: React.FC = () => {
   }
   const { event, youAreAttending } = result;
   return (
-    <div className="px-8 py-4 space-y-4">
+    <div className="space-y-4">
       <div>
         <h1>{event?.name}</h1>
         <AttendEvent event={event} youAreAttending={youAreAttending} />
