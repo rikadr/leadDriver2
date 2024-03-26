@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getAppUrl } from "../../utils/app-url";
 import { useEventsYouAttend } from "../event/event-api";
 import { EventCard } from "../event/event-card";
+import { CarCard } from "../cars/car-card";
 
 export const MyProfile: React.FC = () => {
   const navigate = useNavigate();
@@ -31,14 +32,11 @@ export const MyProfile: React.FC = () => {
           Add car +
         </button>
       </div>
-      {youQuery.data.data.cars.map((car) => (
-        <div
-          key={car.id}
-          className="p-2 m-2 bg-sky-200 hover:bg-sky-100 transition-colors duration-200 cursor-pointer"
-        >
-          Model: {car.model}
-        </div>
-      ))}
+      <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {youQuery.data.data.cars.map((car) => (
+          <CarCard car={car} />
+        ))}
+      </div>
       {youQuery.data.data.cars.length === 0 && "No cars :("}
       <h2>Events you attend:</h2>
       <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

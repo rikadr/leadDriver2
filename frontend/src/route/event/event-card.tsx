@@ -11,7 +11,7 @@ export const EventCard: React.FC<{
     "Qui quis incididunt esse ex deserunt eiusmod ex consequat qui et esse duis commodo velit. Qui et esse duis commodo velit.";
   return (
     <Link to={getAppUrl("event", event.id)}>
-      <Card hoverEffects>
+      <Card hoverEffects className="h-full flex flex-col gap-2 ">
         <h1>{event.name}</h1>
         <p className="text-gray-500 italic">
           {description.length > 100
