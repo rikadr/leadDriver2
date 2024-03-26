@@ -21,6 +21,8 @@ export type YouResponse = IApiResponse<UserDTO>;
 export type AddCarPayload = { model: string };
 export type AddCarResponse = IApiResponse<CarDTO>;
 
+export type GetCarsResponse = IApiResponse<CarDTO[]>;
+
 export type GetEventPayload = { eventId: string };
 export type GetEventResponse = IApiResponse<{
   event: EventDTO;

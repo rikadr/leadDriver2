@@ -1,20 +1,29 @@
 import { PrismaClient } from "@prisma/client";
 import { Car } from "../classes/car";
+import { dbCarInclude } from "../types/event-types";
 
 export class CarStore {
   constructor(private prismaClient: PrismaClient) {}
 
   async findOne({ carId }: { carId: string }): Promise<Car | null> {
-    const car = await this.prismaClient.car.findUnique({
+    const car: dbCarInclude | null = await this.prismaClient.car.findUnique({
       where: {
         id: carId,
+      },
+      include: {
+        owner: true,
       },
     });
     return car ? new Car(car) : null;
   }
 
   async findMany({ ownerId }: { ownerId: string }): Promise<Car[]> {
-    const cars = await this.prismaClient.car.findMany({ where: { ownerId } });
+    const cars: dbCarInclude[] = await this.prismaClient.car.findMany({
+      where: { ownerId },
+      include: {
+        owner: true,
+      },
+    });
     return cars.map((car) => new Car(car));
   }
 
@@ -25,10 +34,13 @@ export class CarStore {
     model: string;
     ownerId: string;
   }): Promise<Car> {
-    const created = await this.prismaClient.car.create({
+    const created: dbCarInclude = await this.prismaClient.car.create({
       data: {
         model,
         ownerId,
+      },
+      include: {
+        owner: true,
       },
     });
     return new Car(created);

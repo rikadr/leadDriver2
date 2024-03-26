@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getAppUrl } from "../../utils/app-url";
 import { useEvents } from "./event-api";
 import { EventCard } from "./event-card";
+import { CardGridWrapper } from "../../components/card";
 
 export const EventsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -25,14 +26,15 @@ export const EventsPage: React.FC = () => {
           Add event +
         </button>
       </div>
-      <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <CardGridWrapper>
         {eventsQuery.data?.data?.map((event) => (
           <EventCard
+            key={event.event.id}
             event={event.event}
             youAreAttending={event.youAreAttending}
           />
         ))}
-      </div>
+      </CardGridWrapper>
       {eventsQuery.data.data.length === 0 && "No events :("}
     </div>
   );

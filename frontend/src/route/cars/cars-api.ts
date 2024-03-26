@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AddCarPayload, AddCarResponse } from "shared";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AddCarPayload, AddCarResponse, GetCarsResponse } from "shared";
 import { httpClient } from "../../common/http-client";
 
 export const useAddCarMutation = () => {
@@ -12,5 +12,16 @@ export const useAddCarMutation = () => {
       }).json();
     },
     onSuccess: () => queryClient.invalidateQueries(),
+  });
+};
+
+export const useYourCars = () => {
+  return useQuery<GetCarsResponse>({
+    queryKey: ["your-cars"],
+    queryFn: async () => {
+      return httpClient("/api/cars/your", {}).json();
+    },
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
   });
 };

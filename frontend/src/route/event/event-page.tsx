@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEvent } from "./event-api";
 import { AttendEvent } from "./attend-event/attend-event";
+import { CarCard } from "../cars/car-card";
+import { CardGridWrapper } from "../../components/card";
 
 export const EventPage: React.FC = () => {
   let { id } = useParams();
@@ -11,23 +13,24 @@ export const EventPage: React.FC = () => {
   }
   const { event, youAreAttending } = result;
   return (
-    <div className="px-8 py-4">
-      <h1>Event</h1>
-      <div className="flex gap-4">
-        <h2>{event?.name}</h2>
+    <div className="px-8 py-4 space-y-4">
+      <div>
+        <h1>{event?.name}</h1>
+        <AttendEvent event={event} youAreAttending={youAreAttending} />
       </div>
-      <AttendEvent event={event} youAreAttending={youAreAttending} />
       <p>Attendees ({event?.attendence?.length}):</p>
-      <ul>
+      <CardGridWrapper>
         {event?.attendence?.map((attendee) => (
-          <li
+          <CarCard
             key={attendee.id}
-            className="p-2 m-2 bg-sky-200 hover:bg-sky-100 transition-colors duration-200 cursor-pointer"
-          >
-            {attendee.user.name}, {attendee.car.model}
-          </li>
+            car={{
+              id: attendee.car.id,
+              model: attendee.car.model,
+              ownerName: attendee.user.name,
+            }}
+          />
         ))}
-      </ul>
+      </CardGridWrapper>
     </div>
   );
 };

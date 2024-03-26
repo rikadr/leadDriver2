@@ -23,7 +23,7 @@ export const EventCard: React.FC<{
         </p>
         <div className="flex">
           {event.attendence.map((attendence) => (
-            <CarBouble attendence={attendence} />
+            <CarBouble key={attendence.id} attendence={attendence} />
           ))}
         </div>
         {youAreAttending && (
@@ -40,11 +40,8 @@ const CarBouble: React.FC<{ attendence: EventAttendence }> = ({
   attendence: { car },
 }) => {
   return (
-    <Link
-      to={getAppUrl("car", car.id)}
-      className="aspect-square h-7 -mr-1.5 rounded-full shadow-lg flex items-center justify-center bg-sky-500 hover:bg-sky-700 hover:ring-1 ring-sky-200 transition-all duration-150"
-    >
+    <div className="aspect-square h-7 -mr-1.5 rounded-full shadow-lg flex items-center justify-center bg-sky-500 hover:bg-sky-700 hover:ring-1 ring-sky-200 transition-all duration-150">
       <p>{car.model[0]}</p>
-    </Link>
+    </div>
   );
 };

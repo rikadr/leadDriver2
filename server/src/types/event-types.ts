@@ -1,10 +1,10 @@
-import { car, eventAttendce, user } from "@prisma/client";
+import { car, event, eventAttendce, user } from "@prisma/client";
 
-export type dbEventInclude = {
-  id: string;
-  name: string;
+export type dbEventInclude = event & {
   eventAttendce: (eventAttendce & {
     user: user;
     car: car;
   })[];
 };
+
+export type dbCarInclude = car & { owner: user };
