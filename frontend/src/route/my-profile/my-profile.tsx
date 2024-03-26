@@ -1,6 +1,6 @@
 import React from "react";
 import { useYou } from "./my-profile-api";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getAppUrl } from "../../utils/app-url";
 import { useEventsYouAttend } from "../event/event-api";
 import { EventCard } from "../event/event-card";
