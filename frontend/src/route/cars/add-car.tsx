@@ -27,7 +27,12 @@ export const AddCar: React.FC = () => {
       onSubmit={form.handleSubmit(handleLogin, (error) => console.log(error))}
       className="flex flex-col gap-4 w-96 m-auto"
     >
-      <input type="text" placeholder="Model" {...form.register("model")} />
+      <input
+        type="text"
+        placeholder="Model"
+        className="text-black"
+        {...form.register("model")}
+      />
       <p>{message}</p>
       <button
         className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-4 rounded-full w-full"

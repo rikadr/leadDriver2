@@ -1,9 +1,10 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getAppUrl } from "../../utils/app-url";
-import { useEvents } from "../event/event-api";
+import { useEvents } from "./event-api";
+import { EventCard } from "./event-card";
 
-export const Events: React.FC = () => {
+export const EventsPage: React.FC = () => {
   const navigate = useNavigate();
   const eventsQuery = useEvents();
   if (eventsQuery.isLoading) {
@@ -24,17 +25,12 @@ export const Events: React.FC = () => {
           Add event +
         </button>
       </div>
-      <div className="flex flex-col">
+      <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {eventsQuery.data?.data?.map((event) => (
-          <Link
-            key={event.event.id}
-            to={getAppUrl("event", event.event.id)}
-            className="p-2 m-2 w-full bg-sky-200 hover:bg-sky-100 transition-colors duration-200 cursor-pointer"
-          >
-            {event.event.name}, {event.event.attendence.length} attendee
-            {event.event.attendence.length !== 1 ? "s" : ""}.{" "}
-            {event.youAreAttending && "You are attending!"}
-          </Link>
+          <EventCard
+            event={event.event}
+            youAreAttending={event.youAreAttending}
+          />
         ))}
       </div>
       {eventsQuery.data.data.length === 0 && "No events :("}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { EventDTO } from "shared";
 import { AttendEventForm } from "./attend-event-form";
-import { useRevokeAttendenceEventMutation } from "./event-api";
+import { useRevokeAttendenceEventMutation } from "../event-api";
 
 export const AttendEvent: React.FC<{
   event?: EventDTO;

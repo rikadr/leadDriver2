@@ -7,7 +7,7 @@ export const NavMenu: React.FC = () => {
   const you = useYouInitials();
 
   return (
-    <div className="h-14 border-b-[1px] border-black/10 backdrop-blur-md flex items-center absolute w-full">
+    <div className="h-14 border-b-[1px] border-white/10 backdrop-blur-md bg-sky-600/20 flex items-center absolute w-full">
       <Link
         to={appUrl["home"]}
         className="font-bold px-6 py-4 transition-colors duration-200 hover:bg-sky-500 hover:text-white"

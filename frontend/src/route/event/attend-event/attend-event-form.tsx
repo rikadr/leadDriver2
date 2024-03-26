@@ -1,8 +1,8 @@
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AttendEventPayload } from "shared";
-import { useYou } from "../my-profile/my-profile-api";
-import { useAttendEventMutation } from "./event-api";
+import { useYou } from "../../my-profile/my-profile-api";
+import { useAttendEventMutation } from "../event-api";
 
 export const AttendEventForm: React.FC<{ eventId: string }> = ({ eventId }) => {
   const youQuery = useYou();
@@ -18,7 +18,7 @@ export const AttendEventForm: React.FC<{ eventId: string }> = ({ eventId }) => {
       onSubmit={form.handleSubmit(handleSubmit, (error) => console.log(error))}
       className="flex flex-col gap-4 w-96"
     >
-      <select {...form.register("carId")}>
+      <select className="text-black" {...form.register("carId")}>
         <option>Select what car to attend with</option>
         {youQuery.data?.data?.cars?.map((car) => (
           <option key={car.id} value={car.id}>

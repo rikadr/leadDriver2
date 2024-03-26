@@ -6,9 +6,9 @@ import { LayoutContainer } from "./layout/layout-container";
 import { LoginPage } from "./route/login/login-page";
 import { appUrl } from "./utils/app-url";
 import { AddCar } from "./route/cars/add-car";
-import { AddEvent } from "./route/event/add-event";
-import { Events } from "./route/event/events";
-import { Event } from "./route/event/event";
+import { AddEventPage } from "./route/event/add-event-page";
+import { EventsPage } from "./route/event/events-page";
+import { EventPage } from "./route/event/event-page";
 
 const queryClient = new QueryClient();
 
@@ -24,11 +24,11 @@ function App() {
               <Route index element={<Navigate to={appUrl["my-profile"]} />} />
               <Route path={appUrl["add"]} element={<AddCar />} />
             </Route>
-            <Route path={appUrl["events"]} element={<Events />} />
+            <Route path={appUrl["events"]} element={<EventsPage />} />
             <Route path={appUrl["event"]}>
               <Route index element={<Navigate to={appUrl["events"]} />} />
-              <Route path=":id" element={<Event />} />
-              <Route path={appUrl["add"]} element={<AddEvent />} />
+              <Route path=":id" element={<EventPage />} />
+              <Route path={appUrl["add"]} element={<AddEventPage />} />
             </Route>
             <Route path={appUrl["login"]} element={<LoginPage />} />
           </Routes>

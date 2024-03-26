@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEvent } from "./event-api";
-import { AttendEvent } from "./attend-event";
+import { AttendEvent } from "./attend-event/attend-event";
 
-export const Event: React.FC = () => {
+export const EventPage: React.FC = () => {
   let { id } = useParams();
   const eventsQuery = useEvent(id);
   const result = eventsQuery.data?.data;
