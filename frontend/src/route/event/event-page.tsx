@@ -26,6 +26,7 @@ export const EventPage: React.FC = () => {
             car={{
               id: attendee.car.id,
               model: attendee.car.model,
+              imageUrl: attendee.car.imageUrl,
               ownerName: attendee.user.name,
             }}
           />

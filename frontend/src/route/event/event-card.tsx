@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { EventAttendence, EventDTO } from "shared";
+import { EventDTO } from "shared";
 import { getAppUrl } from "../../utils/app-url";
 import { Card } from "../../components/card";
 
@@ -23,7 +23,11 @@ export const EventCard: React.FC<{
         </p>
         <div className="flex">
           {event.attendence.map((attendence) => (
-            <CarBouble key={attendence.id} attendence={attendence} />
+            <CarBouble
+              key={attendence.id}
+              imageUrl={attendence.car.imageUrl}
+              model={attendence.car.model}
+            />
           ))}
         </div>
         {youAreAttending && (
@@ -36,12 +40,23 @@ export const EventCard: React.FC<{
   );
 };
 
-const CarBouble: React.FC<{ attendence: EventAttendence }> = ({
-  attendence: { car },
+const CarBouble: React.FC<{ imageUrl: string | undefined; model: string }> = ({
+  imageUrl,
+  model,
 }) => {
-  return (
-    <div className="aspect-square h-7 -mr-1.5 rounded-full shadow-lg flex items-center justify-center bg-sky-500 hover:bg-sky-700 hover:ring-1 ring-sky-200 transition-all duration-150">
-      <p>{car.model[0]}</p>
-    </div>
-  );
+  if (imageUrl) {
+    return (
+      <img
+        src={imageUrl}
+        alt="Car"
+        className="aspect-square h-7 object-cover -mr-1.5 rounded-full shadow-lg hover:ring-1 ring-sky-200 transition-all duration-150"
+      ></img>
+    );
+  } else {
+    return (
+      <div className="aspect-square h-7 -mr-1.5 rounded-full shadow-lg flex items-center justify-center bg-sky-500 hover:bg-sky-700 hover:ring-1 ring-sky-200 transition-all duration-150">
+        <p>{model[0]}</p>
+      </div>
+    );
+  }
 };

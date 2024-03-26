@@ -7,5 +7,5 @@ export type EventDTO = {
 export type EventAttendence = {
   id: string;
   user: { id: string; name: string };
-  car: { id: string; model: string };
+  car: { id: string; model: string; imageUrl?: string };
 };

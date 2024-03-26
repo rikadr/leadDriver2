@@ -32,7 +32,11 @@ export class Event {
       attendence: this.eventAttendce.map((attendee) => ({
         id: attendee.id,
         user: { id: attendee.user.id, name: attendee.user.name },
-        car: { id: attendee.car.id, model: attendee.car.model },
+        car: {
+          id: attendee.car.id,
+          model: attendee.car.model,
+          imageUrl: attendee.car.imageUrl,
+        },
       })),
     };
   }

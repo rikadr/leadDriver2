@@ -5,12 +5,16 @@ import { dbCarInclude } from "../types/event-types";
 export class Car {
   id: string;
   model: string;
+  imageUrl: string | undefined;
   ownerId: string;
   ownerName: string | undefined;
 
   constructor(car: car | dbCarInclude) {
     this.id = car.id;
     this.model = car.model;
+    if (car.imageUrl) {
+      this.imageUrl = car.imageUrl;
+    }
     this.ownerId = car.ownerId;
     if ("owner" in car && car.owner !== null) {
       this.ownerName = car.owner.name;
@@ -21,6 +25,7 @@ export class Car {
     return {
       id: this.id,
       model: this.model,
+      imageUrl: this.imageUrl,
       ownerName: this.ownerName,
     };
   }

@@ -19,6 +19,7 @@ model user {
 model car {
   id            String          @id @default(uuid())
   model         String
+  imageUrl      String?
   ownerId       String
   owner         user            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   eventAttendce eventAttendce[]
