@@ -22,7 +22,7 @@ export const register = async (server: Server, carManager: CarManager) => {
       const payload = JSON.parse(request.payload.toString()) as AddCarPayload;
 
       const car = await carManager.createCar({
-        model: payload.model,
+        data: payload,
         ownerId: credentials.userId,
       });
 

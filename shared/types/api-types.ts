@@ -18,7 +18,7 @@ export type CheckLoginResponse = IApiResponse<{ isLoggedIn: boolean }>;
 export type YouInitialsResponse = IApiResponse<{ initials?: string }>;
 export type YouResponse = IApiResponse<UserDTO>;
 
-export type AddCarPayload = { model: string };
+export type AddCarPayload = { model: string; imageUrl?: string };
 export type AddCarResponse = IApiResponse<CarDTO>;
 
 export type GetCarsResponse = IApiResponse<CarDTO[]>;

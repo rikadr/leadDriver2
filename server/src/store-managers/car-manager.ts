@@ -1,6 +1,7 @@
 import { CarStore } from "../stores/car-store";
 import { Car } from "../classes/car";
 import { notFound } from "@hapi/boom";
+import { AddCarPayload } from "shared";
 
 export class CarManager {
   constructor(private carStore: CarStore) {}
@@ -21,14 +22,14 @@ export class CarManager {
   }
 
   async createCar({
-    model,
+    data,
     ownerId,
   }: {
-    model: string;
+    data: AddCarPayload;
     ownerId: string;
   }): Promise<Car> {
     const created = await this.carStore.createCar({
-      model,
+      data,
       ownerId,
     });
     return created;
