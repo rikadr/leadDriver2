@@ -3,6 +3,7 @@ import { useYou } from "./my-profile-api";
 import { Link, useNavigate } from "react-router-dom";
 import { getAppUrl } from "../../utils/app-url";
 import { useEventsYouAttend } from "../event/event-api";
+import { EventCard } from "../event/event-card";
 
 export const MyProfile: React.FC = () => {
   const navigate = useNavigate();
@@ -39,20 +40,16 @@ export const MyProfile: React.FC = () => {
         </div>
       ))}
       {youQuery.data.data.cars.length === 0 && "No cars :("}
-      <div className="flex flex-col">
-        <h2>Events you attend:</h2>
+      <h2>Events you attend:</h2>
+      <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {eventsQuery.data?.data?.map((event) => (
-          <Link
-            key={event.event.id}
-            to={getAppUrl("event", event.event.id)}
-            className="p-2 m-2 w-full bg-sky-200 hover:bg-sky-100 transition-colors duration-200 cursor-pointer"
-          >
-            {event.event.name}, {event.event.attendence.length} attendee
-            {event.event.attendence.length !== 1 ? "s" : ""}.{" "}
-          </Link>
+          <EventCard
+            event={event.event}
+            youAreAttending={event.youAreAttending}
+          />
         ))}
-        {eventsQuery.data?.data?.length === 0 && "You attend no events :("}
       </div>
+      {eventsQuery.data?.data?.length === 0 && "You attend no events :("}
     </div>
   );
 };
