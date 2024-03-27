@@ -5,10 +5,11 @@ import { MyProfile } from "./route/my-profile/my-profile";
 import { LayoutContainer } from "./layout/layout-container";
 import { LoginPage } from "./route/login/login-page";
 import { appUrl } from "./utils/app-url";
-import { AddCar } from "./route/cars/add-car";
+import { AddCarPage } from "./route/cars/add-car-page";
 import { AddEventPage } from "./route/event/add-event-page";
 import { EventsPage } from "./route/event/events-page";
 import { EventPage } from "./route/event/event-page";
+import { CarPage } from "./route/cars/car-page";
 
 const queryClient = new QueryClient();
 
@@ -22,7 +23,8 @@ function App() {
             <Route path={appUrl["my-profile"]} element={<MyProfile />} />
             <Route path={appUrl["car"]}>
               <Route index element={<Navigate to={appUrl["my-profile"]} />} />
-              <Route path={appUrl["add"]} element={<AddCar />} />
+              <Route path=":id" element={<CarPage />} />
+              <Route path={appUrl["add"]} element={<AddCarPage />} />
             </Route>
             <Route path={appUrl["events"]} element={<EventsPage />} />
             <Route path={appUrl["event"]}>

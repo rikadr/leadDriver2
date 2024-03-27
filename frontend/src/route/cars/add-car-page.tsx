@@ -5,7 +5,7 @@ import { useAddCarMutation } from "./cars-api";
 import { useNavigate } from "react-router-dom";
 import { getAppUrl } from "../../utils/app-url";
 
-export const AddCar: React.FC = () => {
+export const AddCarPage: React.FC = () => {
   const [message, setMessage] = useState<string>();
   const navigate = useNavigate();
 

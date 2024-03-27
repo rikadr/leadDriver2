@@ -1,9 +1,25 @@
 import { Server } from "@hapi/hapi";
 import { getCredentialsDefined } from "./credential-utils";
 import { CarManager } from "../store-managers/car-manager";
-import { AddCarPayload, AddCarResponse, GetCarsResponse } from "shared";
+import {
+  AddCarPayload,
+  AddCarResponse,
+  GetCarPayload,
+  GetCarResponse,
+  GetCarsResponse,
+} from "shared";
 
 export const register = async (server: Server, carManager: CarManager) => {
+  server.route({
+    method: "GET",
+    path: "/api/car",
+    handler: async (request): Promise<GetCarResponse> => {
+      const { carId } = request.query as GetCarPayload;
+      const car = await carManager.findOne({ carId });
+      return { data: car.toDTO() };
+    },
+  });
+
   server.route({
     method: "GET",
     path: "/api/cars/your",
