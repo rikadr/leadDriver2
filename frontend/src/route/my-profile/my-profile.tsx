@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getAppUrl } from "../../utils/app-url";
 import { useEventsYouAttend } from "../event/event-api";
 import { EventCard } from "../event/event-card";
-import { CarCard } from "../cars/car-card";
+import { CarCardLink } from "../cars/car-card";
 import { useYourCars } from "../cars/cars-api";
 import { CardGridWrapper } from "../../components/card";
 import { Button } from "../../components/button";
@@ -34,7 +34,7 @@ export const MyProfile: React.FC = () => {
       </div>
       <CardGridWrapper>
         {yourCarsQuery.data?.data?.map((car) => (
-          <CarCard key={car.id} car={car} />
+          <CarCardLink key={car.id} car={car} />
         ))}
       </CardGridWrapper>
       {youQuery.data.data.cars.length === 0 && "No cars :("}

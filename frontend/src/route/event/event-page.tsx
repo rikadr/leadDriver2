@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEvent } from "./event-api";
 import { AttendEvent } from "./attend-event/attend-event";
-import { CarCard } from "../cars/car-card";
+import { CarCardLink } from "../cars/car-card";
 import { CardGridWrapper } from "../../components/card";
 
 export const EventPage: React.FC = () => {
@@ -14,14 +14,12 @@ export const EventPage: React.FC = () => {
   const { event, youAreAttending } = result;
   return (
     <div className="space-y-4">
-      <div>
-        <h1>{event?.name}</h1>
-        <AttendEvent event={event} youAreAttending={youAreAttending} />
-      </div>
+      <h1>{event?.name}</h1>
+      <AttendEvent event={event} youAreAttending={youAreAttending} />
       <p>Attendees ({event?.attendence?.length}):</p>
       <CardGridWrapper>
         {event?.attendence?.map((attendee) => (
-          <CarCard
+          <CarCardLink
             key={attendee.id}
             car={{
               id: attendee.car.id,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { EventDTO } from "shared";
 import { AttendEventForm } from "./attend-event-form";
 import { useRevokeAttendenceEventMutation } from "../event-api";
@@ -8,8 +8,6 @@ export const AttendEvent: React.FC<{
   event?: EventDTO;
   youAreAttending?: boolean;
 }> = ({ event, youAreAttending }) => {
-  const [showForm, setShowForm] = useState(false);
-
   const revokeAttendenceMutation = useRevokeAttendenceEventMutation();
 
   if (!event) {
@@ -27,12 +25,5 @@ export const AttendEvent: React.FC<{
     );
   }
 
-  return (
-    <div className="space-y-4">
-      <Button type="button" onClick={() => setShowForm(!showForm)}>
-        {showForm ? "Cancel" : "Attend ..."}
-      </Button>
-      {event && showForm && <AttendEventForm eventId={event.id} />}
-    </div>
-  );
+  return <AttendEventForm eventId={event.id} />;
 };

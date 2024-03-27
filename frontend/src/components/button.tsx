@@ -17,9 +17,9 @@ export const Button: React.FC<{
   children,
 }) => {
   const colors: Record<Variant, string> = {
-    primary: "bg-sky-500 hover:bg-sky-700",
+    primary: "bg-sky-500 hover:bg-sky-700 hover:ring-0",
     secondary: "bg-zink-900 hover:bg-zinc-700",
-    danger: "bg-red-700 hover:bg-red-900",
+    danger: "bg-red-700 hover:bg-red-900 ring-0",
   };
 
   return (
