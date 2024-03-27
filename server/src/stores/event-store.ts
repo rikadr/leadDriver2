@@ -1,14 +1,20 @@
 import { PrismaClient, event } from "@prisma/client";
-import { dbEventInclude } from "../types/event-types";
+import { dbEventInclude } from "../types/db-include-types";
 import { Event } from "../classes/event";
 
 export class EventStore {
   constructor(private prismaClient: PrismaClient) {}
 
-  async createEvent({ name }: { name: string }): Promise<event> {
+  async createEvent(
+    userId: string,
+    data: { name: string; description?: string; location?: string }
+  ): Promise<event> {
     return await this.prismaClient.event.create({
       data: {
-        name,
+        name: data.name,
+        description: data.description ?? null,
+        location: data.location ?? null,
+        ownerId: userId,
       },
     });
   }
@@ -18,6 +24,7 @@ export class EventStore {
       await this.prismaClient.event.findFirst({
         where: { id: eventId },
         include: {
+          owner: true,
           eventAttendce: {
             include: {
               user: true,
@@ -32,6 +39,7 @@ export class EventStore {
   async getEvents() {
     const events: dbEventInclude[] = await this.prismaClient.event.findMany({
       include: {
+        owner: true,
         eventAttendce: {
           include: {
             user: true,
@@ -47,6 +55,7 @@ export class EventStore {
     const events: dbEventInclude[] = await this.prismaClient.event.findMany({
       where: { eventAttendce: { some: { userId } } },
       include: {
+        owner: true,
         eventAttendce: {
           include: {
             user: true,

@@ -21,6 +21,9 @@
     input {
       @apply px-4 py-1 rounded-lg text-sm font-light bg-zinc-900 ring-[0.5px] ring-white/50 text-white;
     }
+    textarea {
+      @apply px-4 py-2 min-h-10 h-fit rounded-lg text-sm font-light bg-zinc-900 ring-[0.5px] ring-white/50 text-white;
+    }
   }
 
   ::selection {

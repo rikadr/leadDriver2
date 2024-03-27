@@ -1,6 +1,6 @@
 import { car } from "@prisma/client";
 import { CarDTO } from "shared";
-import { dbCarInclude } from "../types/event-types";
+import { dbCarInclude } from "../types/db-include-types";
 
 export class Car {
   id: string;

@@ -77,13 +77,20 @@ export const register = async (server: Server, eventManager: EventManager) => {
       description: "Create a new event",
       auth: { mode: "required" },
       handler: async (request): Promise<AddEventResponse> => {
+        const { userId } = getCredentialsDefined(request);
+
         const payload = JSON.parse(
           request.payload.toString()
         ) as AddEventPayload;
 
-        const { eventId: createdEventId } = await eventManager.createEvent({
-          name: payload.name,
-        });
+        const { eventId: createdEventId } = await eventManager.createEvent(
+          userId,
+          {
+            name: payload.name,
+            description: payload.description,
+            location: payload.location,
+          }
+        );
 
         return { data: { eventId: createdEventId } };
       },

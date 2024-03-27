@@ -5,8 +5,11 @@ import { badData, notFound } from "@hapi/boom";
 export class EventManager {
   constructor(private eventStore: EventStore, private carStore: CarStore) {}
 
-  async createEvent({ name }: { name: string }): Promise<{ eventId: string }> {
-    const created = await this.eventStore.createEvent({ name });
+  async createEvent(
+    userId: string,
+    data: { name: string; description?: string; location?: string }
+  ): Promise<{ eventId: string }> {
+    const created = await this.eventStore.createEvent(userId, data);
     return { eventId: created.id };
   }
 

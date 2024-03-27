@@ -37,7 +37,11 @@ export type GetEventsResponse = IApiResponse<
   }[]
 >;
 
-export type AddEventPayload = { name: string };
+export type AddEventPayload = {
+  name: string;
+  description?: string;
+  location?: string;
+};
 export type AddEventResponse = IApiResponse<{ eventId: string }>;
 
 export type AttendEventPayload = { eventId: string; carId: string };

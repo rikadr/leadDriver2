@@ -1,6 +1,9 @@
 export type EventDTO = {
   id: string;
   name: string;
+  location?: string;
+  description?: string;
+  owner: { id: string; name: string };
   attendence: EventAttendence[];
 };
 

@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Car } from "../classes/car";
-import { dbCarInclude } from "../types/event-types";
+import { dbCarInclude } from "../types/db-include-types";
 import { AddCarPayload } from "shared";
 
 export class CarStore {
