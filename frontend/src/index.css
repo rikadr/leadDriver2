@@ -19,3 +19,8 @@
       @apply font-light text-sm;
     }
   }
+
+  ::selection {
+    background: skyblue;
+    color: white;
+  }
