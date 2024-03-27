@@ -4,6 +4,7 @@ import { AddCarPayload } from "shared";
 import { useAddCarMutation } from "./cars-api";
 import { useNavigate } from "react-router-dom";
 import { getAppUrl } from "../../utils/app-url";
+import { Button } from "../../components/button";
 
 export const AddCarPage: React.FC = () => {
   const [message, setMessage] = useState<string>();
@@ -40,12 +41,7 @@ export const AddCarPage: React.FC = () => {
         {...form.register("imageUrl")}
       />
       <p>{message}</p>
-      <button
-        className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-4 rounded-full w-full"
-        type="submit"
-      >
-        Add car
-      </button>
+      <Button type="submit">Add car</Button>
     </form>
   );
 };

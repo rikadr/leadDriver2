@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AttendEventPayload } from "shared";
 import { useYou } from "../../my-profile/my-profile-api";
 import { useAttendEventMutation } from "../event-api";
+import { Button } from "../../../components/button";
 
 export const AttendEventForm: React.FC<{ eventId: string }> = ({ eventId }) => {
   const youQuery = useYou();
@@ -26,12 +27,7 @@ export const AttendEventForm: React.FC<{ eventId: string }> = ({ eventId }) => {
           </option>
         ))}
       </select>
-      <button
-        className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-4 rounded-full w-full"
-        type="submit"
-      >
-        Attend
-      </button>
+      <Button type="submit">Attend</Button>
     </form>
   );
 };

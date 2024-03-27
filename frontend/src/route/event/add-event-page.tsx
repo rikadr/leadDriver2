@@ -4,6 +4,7 @@ import { AddEventPayload } from "shared";
 import { useNavigate } from "react-router-dom";
 import { getAppUrl } from "../../utils/app-url";
 import { useAddEventMutation } from "./event-api";
+import { Button } from "../../components/button";
 
 export const AddEventPage: React.FC = () => {
   const navigate = useNavigate();
@@ -28,12 +29,7 @@ export const AddEventPage: React.FC = () => {
         className="text-black"
         {...form.register("name")}
       />
-      <button
-        className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-4 rounded-full w-full"
-        type="submit"
-      >
-        Add event
-      </button>
+      <Button type="submit">Add event</Button>
     </form>
   );
 };

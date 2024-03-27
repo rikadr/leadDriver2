@@ -12,10 +12,10 @@ export const LoginPage: React.FC = () => {
         <p className="text-gray-500 text-sm">
           {isLogin ? "No account?" : "Already have an account?"} Go here to{" "}
           <button
-            className="underline hover:text-sky-500 transition-colors duration-200"
+            className="underline hover:text-sky-500 transition-colors duration-200 font-bold"
             onClick={() => setIsLogin(!isLogin)}
           >
-            {isLogin ? "Sign up" : "Log in"}
+            {isLogin ? "sign up" : "log in"}
           </button>
           !
         </p>

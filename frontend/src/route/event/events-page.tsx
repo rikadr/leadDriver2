@@ -4,6 +4,7 @@ import { getAppUrl } from "../../utils/app-url";
 import { useEvents } from "./event-api";
 import { EventCard } from "./event-card";
 import { CardGridWrapper } from "../../components/card";
+import { Button } from "../../components/button";
 
 export const EventsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -16,15 +17,11 @@ export const EventsPage: React.FC = () => {
   }
   return (
     <div className="space-y-4">
-      <div className="flex gap-4">
+      <div className="flex items-baseline justify-between">
         <h1 className="text-lg">All events</h1>
-        <button
-          className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-3 rounded-full "
-          type="button"
-          onClick={() => navigate(getAppUrl(["event", "add"]))}
-        >
+        <Button onClick={() => navigate(getAppUrl(["event", "add"]))}>
           Add event +
-        </button>
+        </Button>
       </div>
       <CardGridWrapper>
         {eventsQuery.data?.data?.map((event) => (

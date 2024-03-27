@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { EventDTO } from "shared";
 import { AttendEventForm } from "./attend-event-form";
 import { useRevokeAttendenceEventMutation } from "../event-api";
+import { Button } from "../../../components/button";
 
 export const AttendEvent: React.FC<{
   event?: EventDTO;
@@ -17,25 +18,20 @@ export const AttendEvent: React.FC<{
 
   if (youAreAttending) {
     return (
-      <button
-        className="bg-red-400 hover:bg-red-800 text-white py-0.5 px-3 rounded-full "
-        type="button"
+      <Button
+        variant="danger"
         onClick={() => revokeAttendenceMutation.mutate({ eventId: event.id })}
       >
         Revoke attendence
-      </button>
+      </Button>
     );
   }
 
   return (
     <div className="space-y-4">
-      <button
-        className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-3 rounded-full "
-        type="button"
-        onClick={() => setShowForm(!showForm)}
-      >
+      <Button type="button" onClick={() => setShowForm(!showForm)}>
         {showForm ? "Cancel" : "Attend ..."}
-      </button>
+      </Button>
       {event && showForm && <AttendEventForm eventId={event.id} />}
     </div>
   );

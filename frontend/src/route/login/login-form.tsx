@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLoginMutation, useLogoutMutation } from "./login-api";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { Button } from "../../components/button";
 
 export const LoginForm: React.FC = () => {
   const [message, setMessage] = useState<string>();
@@ -41,15 +42,9 @@ export const LoginForm: React.FC = () => {
       />
       {message && <p>{message}</p>}
       <div className="flex gap-2">
-        <button
-          className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-4 rounded-full w-1/2"
-          type="submit"
-        >
-          Log in
-        </button>
-        <button
-          className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-4 rounded-full w-1/2"
-          type="button"
+        <Button type="submit">Log in</Button>
+        <Button
+          variant="secondary"
           onClick={() =>
             loginMutation.mutate({
               email: "rikard4@mail.com",
@@ -58,15 +53,9 @@ export const LoginForm: React.FC = () => {
           }
         >
           Log in as Rikard4
-        </button>
+        </Button>
       </div>
-      <button
-        className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-4 rounded-full"
-        type="button"
-        onClick={async () => logoutMutation.mutate()}
-      >
-        Log out
-      </button>
+      <Button onClick={async () => logoutMutation.mutate()}>Log out</Button>
     </form>
   );
 };

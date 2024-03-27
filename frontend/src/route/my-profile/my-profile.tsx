@@ -7,6 +7,7 @@ import { EventCard } from "../event/event-card";
 import { CarCard } from "../cars/car-card";
 import { useYourCars } from "../cars/cars-api";
 import { CardGridWrapper } from "../../components/card";
+import { Button } from "../../components/button";
 
 export const MyProfile: React.FC = () => {
   const navigate = useNavigate();
@@ -25,15 +26,11 @@ export const MyProfile: React.FC = () => {
         <h1>{youQuery.data.data.name}</h1>
         <p className="italic text-gray-500">{youQuery.data.data.email}</p>
       </div>
-      <div className="flex gap-4">
+      <div className="flex items-baseline justify-between">
         <h2>My cars</h2>
-        <button
-          className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-3 rounded-full "
-          type="button"
-          onClick={() => navigate(getAppUrl(["car", "add"]))}
-        >
+        <Button onClick={() => navigate(getAppUrl(["car", "add"]))}>
           Add car +
-        </button>
+        </Button>
       </div>
       <CardGridWrapper>
         {yourCarsQuery.data?.data?.map((car) => (

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSignupMutation } from "./login-api";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { SignupPayload } from "shared";
+import { Button } from "../../components/button";
 
 export const SignupForm: React.FC = () => {
   const [message, setMessage] = useState<string>();
@@ -44,12 +45,7 @@ export const SignupForm: React.FC = () => {
       />
       {message && <p>{message}</p>}
       <div className="flex gap-2">
-        <button
-          className="bg-sky-500 hover:bg-sky-800 text-white py-0.5 px-4 rounded-full w-full"
-          type="submit"
-        >
-          Sign up
-        </button>
+        <Button type="submit">Sign up</Button>
       </div>
     </form>
   );
