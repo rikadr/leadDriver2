@@ -14,6 +14,7 @@ model user {
   name          String
   car           car[]
   eventAttendce eventAttendce[]
+  ownedEvents   event[]
 }
 
 model car {
@@ -28,6 +29,10 @@ model car {
 model event {
   id            String          @id @default(uuid())
   name          String
+  description   String?
+  location      String?
+  ownerId       String
+  owner         user            @relation(fields: [ownerId], references: [id])
   eventAttendce eventAttendce[]
 }
 
