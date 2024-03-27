@@ -28,16 +28,10 @@ export const AddCarPage: React.FC = () => {
       onSubmit={form.handleSubmit(handleLogin, (error) => console.log(error))}
       className="flex flex-col gap-4 w-96 m-auto"
     >
-      <input
-        type="text"
-        placeholder="Model"
-        className="text-black"
-        {...form.register("model")}
-      />
+      <input type="text" placeholder="Model" {...form.register("model")} />
       <input
         type="text"
         placeholder="Image url"
-        className="text-black"
         {...form.register("imageUrl")}
       />
       <p>{message}</p>

@@ -25,22 +25,11 @@ export const SignupForm: React.FC = () => {
       onSubmit={form.handleSubmit(handleLogin, (error) => console.log(error))}
       className="flex flex-col gap-4 w-96 m-auto"
     >
-      <input
-        type="name"
-        placeholder="Name"
-        className="text-black"
-        {...form.register("name")}
-      />
-      <input
-        type="email"
-        placeholder="E-mail"
-        className="text-black"
-        {...form.register("email")}
-      />
+      <input type="name" placeholder="Name" {...form.register("name")} />
+      <input type="email" placeholder="E-mail" {...form.register("email")} />
       <input
         type="password"
         placeholder="Password"
-        className="text-black"
         {...form.register("password")}
       />
       {message && <p>{message}</p>}

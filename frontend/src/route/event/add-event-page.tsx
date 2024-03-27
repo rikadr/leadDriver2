@@ -23,12 +23,7 @@ export const AddEventPage: React.FC = () => {
       onSubmit={form.handleSubmit(handleSubmit, (error) => console.log(error))}
       className="flex flex-col gap-4 w-96 m-auto"
     >
-      <input
-        type="text"
-        placeholder="Event name"
-        className="text-black"
-        {...form.register("name")}
-      />
+      <input type="text" placeholder="Event name" {...form.register("name")} />
       <Button type="submit">Add event</Button>
     </form>
   );

@@ -8,6 +8,8 @@ import {
   SignupPayload,
   SignupResponse,
 } from "shared";
+import { useNavigate } from "react-router-dom";
+import { getAppUrl } from "../../utils/app-url";
 
 export const useSignupMutation = () => {
   const queryClient = useQueryClient();
@@ -24,6 +26,7 @@ export const useSignupMutation = () => {
 
 export const useLoginMutation = () => {
   const queryClient = useQueryClient();
+  const naviagte = useNavigate();
   return useMutation<LoginResponse, Error, LoginPayload, unknown>({
     mutationFn: (credentials: LoginPayload) => {
       return httpClient("/api/login", {
@@ -31,7 +34,10 @@ export const useLoginMutation = () => {
         body: JSON.stringify(credentials),
       }).json();
     },
-    onSuccess: () => queryClient.invalidateQueries(),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      naviagte(getAppUrl("my-profile"));
+    },
   });
 };
 

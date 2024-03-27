@@ -18,6 +18,9 @@
     p {
       @apply font-light text-sm text-left;
     }
+    input {
+      @apply px-4 py-1 rounded-lg text-sm font-light bg-zinc-900 ring-[0.5px] ring-white/50 text-white;
+    }
   }
 
   ::selection {
