@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { EventDTO } from "shared";
 import { getAppUrl } from "../../utils/app-url";
 import { Card } from "../../components/card";
+import { classNames } from "../../common/class-names-utils";
 
 export const EventCard: React.FC<{
   event: EventDTO;
+  yourEvent: boolean;
   youAreAttending: boolean;
-}> = ({ event, youAreAttending }) => {
+}> = ({ event, yourEvent, youAreAttending }) => {
   const description = event.description ?? "";
   return (
     <Link to={getAppUrl("event", event.id)}>
@@ -33,9 +35,17 @@ export const EventCard: React.FC<{
             />
           ))}
         </div>
-        {youAreAttending && (
-          <div className="bg-sky-900 -mx-4 -mb-4 rounded-b-lg px-4 py-1">
-            <p>You are attending</p>
+        {(yourEvent || youAreAttending) && (
+          <div
+            className={classNames(
+              "flex gap-1 -mx-4 -mb-4 rounded-b-lg px-4 py-1",
+              yourEvent
+                ? "bg-gradient-to-r from-sky-500 to-sky-900 to-50%"
+                : "bg-sky-900"
+            )}
+          >
+            {yourEvent && <p className="font-semibold"> ⭐️ Your event. </p>}
+            {youAreAttending && <p>You are attending. </p>}
           </div>
         )}
       </Card>

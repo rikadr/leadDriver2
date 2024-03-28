@@ -8,7 +8,7 @@ import { Button } from "../../components/button";
 
 export const EventsPage: React.FC = () => {
   const navigate = useNavigate();
-  const eventsQuery = useEvents();
+  const eventsQuery = useEvents("ALL");
   if (eventsQuery.isLoading) {
     return <div>Loading...</div>;
   }
@@ -28,6 +28,7 @@ export const EventsPage: React.FC = () => {
           <EventCard
             key={event.event.id}
             event={event.event}
+            yourEvent={event.yourEvent}
             youAreAttending={event.youAreAttending}
           />
         ))}

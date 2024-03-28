@@ -31,6 +31,11 @@ export class EventManager {
     return events;
   }
 
+  async getEventsByOwner(userId: string) {
+    const events = await this.eventStore.getEventsByOwner(userId);
+    return events;
+  }
+
   async attendEvent({
     eventId,
     userId,

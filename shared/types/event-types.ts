@@ -12,3 +12,5 @@ export type EventAttendence = {
   user: { id: string; name: string };
   car: { id: string; model: string; imageUrl?: string };
 };
+
+export type GetEventType = "ALL" | "ATTENDING" | "OWNED";

@@ -4,6 +4,8 @@ import {
   AddEventResponse,
   AttendEventPayload,
   GetEventResponse,
+  GetEventType,
+  GetEventsPayload,
   GetEventsResponse,
   RevokeAttendenceEventPayload,
 } from "shared";
@@ -47,22 +49,12 @@ export const useRevokeAttendenceEventMutation = () => {
   });
 };
 
-export const useEvents = () => {
+export const useEvents = (type: GetEventType) => {
   return useQuery<GetEventsResponse>({
-    queryKey: ["events"],
+    queryKey: ["events", type],
     queryFn: async () => {
-      return httpClient("/api/events", {}).json();
-    },
-    refetchOnWindowFocus: true,
-    refetchOnReconnect: true,
-  });
-};
-
-export const useEventsYouAttend = () => {
-  return useQuery<GetEventsResponse>({
-    queryKey: ["events-attend"],
-    queryFn: async () => {
-      return httpClient("/api/events/attend", {}).json();
+      const queryParams: GetEventsPayload = { type };
+      return httpClient("/api/events", { searchParams: queryParams }).json();
     },
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,

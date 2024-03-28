@@ -18,19 +18,19 @@ export const EventPage: React.FC = () => {
       <h1>{event?.name}</h1>
       {event.location && (
         <section>
-          <h3 className="text-gray-500 italic">Location</h3>
-          <p>{event.location}</p>
+          <h3>Location</h3>
+          <p className="max-w-lg text-gray-500 italic">{event.location}</p>
         </section>
       )}
       {event.description && (
         <section>
-          <h3 className="text-gray-500 italic">Description</h3>
-          <p>{event.description}</p>
+          <h3>Description</h3>
+          <p className="max-w-lg text-gray-500 italic">{event.description}</p>
         </section>
       )}
       <section>
-        <h3 className="text-gray-500 italic">Event owner</h3>
-        <p>{event.owner.name}</p>
+        <h3>Event owner</h3>
+        <p className="max-w-lg text-gray-500 italic">{event.owner.name}</p>
       </section>
       <AttendEvent event={event} youAreAttending={youAreAttending} />
       <p>Attendees: {event?.attendence?.length}</p>

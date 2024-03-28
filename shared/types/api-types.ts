@@ -1,5 +1,5 @@
 import { CarDTO } from "./car-types";
-import { EventDTO } from "./event-types";
+import { EventDTO, GetEventType } from "./event-types";
 import { UserDTO } from "./user-types";
 
 export interface IApiResponse<T = unknown, E = unknown> {
@@ -30,9 +30,12 @@ export type GetEventResponse = IApiResponse<{
   event: EventDTO;
   youAreAttending: boolean;
 }>;
+
+export type GetEventsPayload = { type: GetEventType };
 export type GetEventsResponse = IApiResponse<
   {
     event: EventDTO;
+    yourEvent: boolean;
     youAreAttending: boolean;
   }[]
 >;

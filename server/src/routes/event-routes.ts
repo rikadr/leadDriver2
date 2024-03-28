@@ -5,11 +5,13 @@ import {
   AttendEventPayload,
   GetEventPayload,
   GetEventResponse,
+  GetEventsPayload,
   GetEventsResponse,
   RevokeAttendenceEventPayload,
 } from "shared";
 import { EventManager } from "../store-managers/event-manager";
 import { getCredentialsDefined } from "./credential-utils";
+import { EventClass } from "../classes/event";
 
 export const register = async (server: Server, eventManager: EventManager) => {
   server.route({
@@ -40,29 +42,26 @@ export const register = async (server: Server, eventManager: EventManager) => {
       auth: { mode: "required" },
       handler: async (request): Promise<GetEventsResponse> => {
         const { userId } = getCredentialsDefined(request);
-        const events = await eventManager.getEvents();
-        return {
-          data: events.map((e) => ({
-            event: e.toDTO(),
-            youAreAttending: e.userIsAttending(userId),
-          })),
-        };
-      },
-    },
-  });
+        const { type } = request.query as GetEventsPayload;
+        let events: EventClass[] = [];
 
-  server.route({
-    method: "GET",
-    path: "/api/events/attend",
-    options: {
-      description: "Get all events you attend",
-      auth: { mode: "required" },
-      handler: async (request): Promise<GetEventsResponse> => {
-        const { userId } = getCredentialsDefined(request);
-        const events = await eventManager.getEventsByUserAttendee(userId);
+        switch (type) {
+          case "ALL":
+            events = await eventManager.getEvents();
+            break;
+          case "ATTENDING":
+            events = await eventManager.getEventsByUserAttendee(userId);
+            break;
+          case "OWNED":
+            events = await eventManager.getEventsByOwner(userId);
+            break;
+          default:
+            const exhaustiveCheck: never = type;
+        }
         return {
           data: events.map((e) => ({
             event: e.toDTO(),
+            yourEvent: e.userIsOwner(userId),
             youAreAttending: e.userIsAttending(userId),
           })),
         };

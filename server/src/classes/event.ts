@@ -3,7 +3,7 @@ import { dbEventInclude } from "../types/db-include-types";
 import { User } from "./user";
 import { Car } from "./car";
 
-export class Event {
+export class EventClass {
   id: string;
   name: string;
   location: string | undefined;
@@ -26,6 +26,10 @@ export class Event {
         car: new Car(attendence.car),
       });
     });
+  }
+
+  userIsOwner(userId: string): boolean {
+    return this.owner.id === userId;
   }
 
   userIsAttending(userId: string): boolean {

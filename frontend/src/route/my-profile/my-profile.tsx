@@ -2,7 +2,7 @@ import React from "react";
 import { useYou } from "./my-profile-api";
 import { useNavigate } from "react-router-dom";
 import { getAppUrl } from "../../utils/app-url";
-import { useEventsYouAttend } from "../event/event-api";
+import { useEvents } from "../event/event-api";
 import { EventCard } from "../event/event-card";
 import { CarCardLink } from "../cars/car-card";
 import { useYourCars } from "../cars/cars-api";
@@ -13,7 +13,8 @@ export const MyProfile: React.FC = () => {
   const navigate = useNavigate();
   const youQuery = useYou();
   const yourCarsQuery = useYourCars();
-  const eventsQuery = useEventsYouAttend();
+  const ownedEventsQuery = useEvents("OWNED");
+  const attendingEventsQuery = useEvents("ATTENDING");
   if (youQuery.isLoading) {
     return <div>Loading...</div>;
   }
@@ -27,7 +28,7 @@ export const MyProfile: React.FC = () => {
         <p className="italic text-gray-500">{youQuery.data.data.email}</p>
       </div>
       <div className="flex items-baseline justify-between">
-        <h2>My cars</h2>
+        <h2>My cars ({yourCarsQuery.data?.data?.length})</h2>
         <Button onClick={() => navigate(getAppUrl(["car", "add"]))}>
           Add car +
         </Button>
@@ -38,17 +39,39 @@ export const MyProfile: React.FC = () => {
         ))}
       </CardGridWrapper>
       {youQuery.data.data.cars.length === 0 && "No cars :("}
-      <h2>Events you attend:</h2>
+      <div className="flex items-baseline justify-between">
+        <h2>Events you own ({ownedEventsQuery.data?.data?.length})</h2>
+        <Button onClick={() => navigate(getAppUrl(["event", "add"]))}>
+          Add event +
+        </Button>
+      </div>
       <CardGridWrapper>
-        {eventsQuery.data?.data?.map((event) => (
+        {ownedEventsQuery.data?.data?.map((event) => (
           <EventCard
             key={event.event.id}
             event={event.event}
+            yourEvent={event.yourEvent}
             youAreAttending={event.youAreAttending}
           />
         ))}
+        {ownedEventsQuery.data?.data?.length === 0 && (
+          <p className="text-gray-500 italic">You own no events :(</p>
+        )}
       </CardGridWrapper>
-      {eventsQuery.data?.data?.length === 0 && "You attend no events :("}
+      <h2>Events you attend ({attendingEventsQuery.data?.data?.length})</h2>
+      <CardGridWrapper>
+        {attendingEventsQuery.data?.data?.map((event) => (
+          <EventCard
+            key={event.event.id}
+            event={event.event}
+            yourEvent={event.yourEvent}
+            youAreAttending={event.youAreAttending}
+          />
+        ))}
+        {attendingEventsQuery.data?.data?.length === 0 && (
+          <p className="text-gray-500 italic">You attend no events :(</p>
+        )}
+      </CardGridWrapper>
     </div>
   );
 };
