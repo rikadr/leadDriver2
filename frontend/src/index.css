@@ -24,23 +24,35 @@
     textarea {
       @apply px-4 py-2 min-h-10 h-fit rounded-lg text-sm font-light bg-zinc-900 ring-[0.5px] ring-white/50 text-white;
     }
-  }
+}
 
-  ::selection {
-    background: skyblue;
-    color: white;
-  }
+::selection {
+  background: skyblue;
+  color: white;
+}
 
-  ::-webkit-scrollbar {
-    width: .5rem;
-  }
-  
-  ::-webkit-scrollbar-track {
-    margin-top: 60px;
-    margin-bottom: 5px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 10px;
+::-webkit-scrollbar {
+  width: .5rem;
+}
+::-webkit-scrollbar-track {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.scrollbar-margin::-webkit-scrollbar-track {
+  margin-top: 60px;
+  margin-bottom: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+::-webkit-scrollbar-corner {
+  background: #333;
 }
