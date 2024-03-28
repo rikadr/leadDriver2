@@ -41,7 +41,7 @@ model eventAttendce {
   eventId String
   userId  String
   carId   String
-  event   event  @relation(fields: [eventId], references: [id])
-  user    user   @relation(fields: [userId], references: [id])
-  car     car    @relation(fields: [carId], references: [id])
+  event   event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user    user   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  car     car    @relation(fields: [carId], references: [id], onDelete: Cascade)
 }
