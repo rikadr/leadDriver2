@@ -17,16 +17,18 @@ export const EventPage: React.FC = () => {
   }
   const { event, youAreAttending } = result;
   return (
-    <div className="relative space-y-4">
-      {result.yourEvent && (
-        <Button
-          className="absolute right-0 top-0"
-          onClick={() => navigate(getAppUrl(["event", "edit"], event.id))}
-        >
-          Edit event
-        </Button>
-      )}
-      <h1>{event?.name}</h1>
+    <div className="space-y-4">
+      <div className="flex items-baseline justify-between">
+        <h1>{event?.name}</h1>
+        {result.yourEvent && (
+          <Button
+            className="right-0 top-0"
+            onClick={() => navigate(getAppUrl(["event", "edit"], event.id))}
+          >
+            Edit event
+          </Button>
+        )}
+      </div>
       {event.location && (
         <section>
           <h3>Location</h3>

@@ -36,7 +36,7 @@ export const useLoginMutation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries();
-      naviagte(getAppUrl("my-profile"));
+      naviagte(getAppUrl(["my-profile"]));
     },
   });
 };

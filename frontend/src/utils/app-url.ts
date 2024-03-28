@@ -10,7 +10,7 @@ export type AppId =
 
 export const appUrl: Record<AppId, string> = {
   home: "",
-  "my-profile": "/my-profile",
+  "my-profile": "my-profile",
   add: "add",
   edit: "edit",
   car: "car",
