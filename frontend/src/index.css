@@ -27,7 +27,7 @@
 }
 
 ::selection {
-  background: skyblue;
+  background: rgba(32, 162, 214, 0.5);
   color: white;
 }
 
