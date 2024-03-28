@@ -21,6 +21,10 @@ export class Car {
     }
   }
 
+  userIsOwner(userId: string): boolean {
+    return this.ownerId === userId;
+  }
+
   toDTO(): CarDTO {
     return {
       id: this.id,

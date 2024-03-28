@@ -4,6 +4,8 @@ import { CarManager } from "../store-managers/car-manager";
 import {
   AddCarPayload,
   AddCarResponse,
+  DeleteCarPayload,
+  EditCarPayload,
   GetCarPayload,
   GetCarResponse,
   GetCarsResponse,
@@ -14,9 +16,10 @@ export const register = async (server: Server, carManager: CarManager) => {
     method: "GET",
     path: "/api/car",
     handler: async (request): Promise<GetCarResponse> => {
+      const { userId } = getCredentialsDefined(request);
       const { carId } = request.query as GetCarPayload;
       const car = await carManager.findOne({ carId });
-      return { data: car.toDTO() };
+      return { data: { car: car.toDTO(), isYourCar: car.userIsOwner(userId) } };
     },
   });
 
@@ -43,6 +46,50 @@ export const register = async (server: Server, carManager: CarManager) => {
       });
 
       return { data: car.toDTO() };
+    },
+  });
+
+  server.route({
+    method: "PUT",
+    path: "/api/car",
+    options: {
+      description: "Edit a car",
+      auth: { mode: "required" },
+      handler: async (request, h) => {
+        const credentials = getCredentialsDefined(request);
+        const payload = JSON.parse(
+          request.payload.toString()
+        ) as EditCarPayload;
+
+        await carManager.editCar({
+          userId: credentials.userId,
+          payload,
+        });
+
+        return h.response();
+      },
+    },
+  });
+
+  server.route({
+    method: "DELETE",
+    path: "/api/car",
+    options: {
+      description: "Delete a car",
+      auth: { mode: "required" },
+      handler: async (request, h) => {
+        const credentials = getCredentialsDefined(request);
+        const { carId } = JSON.parse(
+          request.payload.toString()
+        ) as DeleteCarPayload;
+
+        await carManager.deleteCar({
+          userId: credentials.userId,
+          carId,
+        });
+
+        return h.response();
+      },
     },
   });
 };

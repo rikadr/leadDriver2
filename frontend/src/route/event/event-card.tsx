@@ -9,7 +9,7 @@ export const EventCard: React.FC<{
   yourEvent: boolean;
   youAreAttending: boolean;
 }> = ({ event, yourEvent, youAreAttending }) => {
-  const description = event.description ?? "";
+  const description = event.description || "";
   return (
     <Link to={getAppUrl("event", event.id)}>
       <Card hoverEffects className="h-full flex flex-col gap-2 ">

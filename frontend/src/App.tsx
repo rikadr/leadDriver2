@@ -11,6 +11,7 @@ import { EventsPage } from "./route/event/events-page";
 import { EventPage } from "./route/event/event-page";
 import { CarPage } from "./route/cars/car-page";
 import { EditEventPage } from "./route/event/edit-event/edit-event-page";
+import { EditCarPage } from "./route/cars/edit-car/edit-car-page";
 
 const queryClient = new QueryClient();
 
@@ -26,16 +27,17 @@ function App() {
               <Route index element={<Navigate to={appUrl["my-profile"]} />} />
               <Route path=":id" element={<CarPage />} />
               <Route path={appUrl["add"]} element={<AddCarPage />} />
+              <Route path={appUrl["edit"] + "/:id"} element={<EditCarPage />} />
             </Route>
             <Route path={appUrl["events"]} element={<EventsPage />} />
             <Route path={appUrl["event"]}>
               <Route index element={<Navigate to={appUrl["events"]} />} />
               <Route path=":id" element={<EventPage />} />
+              <Route path={appUrl["add"]} element={<AddEventPage />} />
               <Route
                 path={appUrl["edit"] + "/:id"}
                 element={<EditEventPage />}
               />
-              <Route path={appUrl["add"]} element={<AddEventPage />} />
             </Route>
             <Route path={appUrl["login"]} element={<LoginPage />} />
           </Routes>

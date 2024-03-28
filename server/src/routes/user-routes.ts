@@ -45,7 +45,7 @@ export const register = async (server: Server, userManager: UserManager) => {
           userId: credentials.userId,
           includeCars: true,
         });
-        initials = user.name[0] ?? "#";
+        initials = user.name[0] || "#";
       } catch (e) {}
 
       return { data: { initials } };

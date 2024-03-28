@@ -21,8 +21,18 @@ export type YouResponse = IApiResponse<UserDTO>;
 export type AddCarPayload = { model: string; imageUrl?: string };
 export type AddCarResponse = IApiResponse<CarDTO>;
 
+export type EditCarPayload = {
+  carId: string;
+  model: string;
+  imageUrl?: string;
+};
+
+export type DeleteCarPayload = {
+  carId: string;
+};
+
 export type GetCarPayload = { carId: string };
-export type GetCarResponse = IApiResponse<CarDTO>;
+export type GetCarResponse = IApiResponse<{ car: CarDTO; isYourCar: boolean }>;
 export type GetCarsResponse = IApiResponse<CarDTO[]>;
 
 export type GetEventPayload = { eventId: string };

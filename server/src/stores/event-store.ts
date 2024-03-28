@@ -23,8 +23,8 @@ export class EventStore {
     const created = await this.prismaClient.event.create({
       data: {
         name: data.name,
-        description: data.description ?? null,
-        location: data.location ?? null,
+        description: data.description || null,
+        location: data.location || null,
         ownerId: userId,
       },
       include: this.eventIncludeStatement,
