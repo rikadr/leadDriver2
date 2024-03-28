@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAppUrl } from "../../../utils/app-url";
 import { CarDTO, EditCarPayload } from "shared";
 import { useNavigate } from "react-router-dom";
-import { SubmitHandler, set, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "../../../components/button";
 import { useDeleteCarMutation, useEditCarMutation } from "../cars-api";
 
