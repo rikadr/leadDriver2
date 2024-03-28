@@ -1,9 +1,20 @@
 import { PrismaClient, event } from "@prisma/client";
 import { dbEventInclude } from "../types/db-include-types";
 import { EventClass } from "../classes/event";
+import { EditEventPayload } from "shared";
 
 export class EventStore {
   constructor(private prismaClient: PrismaClient) {}
+
+  private eventIncludeStatement = {
+    owner: true,
+    eventAttendce: {
+      include: {
+        user: true,
+        car: true,
+      },
+    },
+  };
 
   async createEvent(
     userId: string,
@@ -23,30 +34,14 @@ export class EventStore {
     const event: dbEventInclude | null =
       await this.prismaClient.event.findFirst({
         where: { id: eventId },
-        include: {
-          owner: true,
-          eventAttendce: {
-            include: {
-              user: true,
-              car: true,
-            },
-          },
-        },
+        include: this.eventIncludeStatement,
       });
     return event ? new EventClass(event) : null;
   }
 
   async getEvents() {
     const events: dbEventInclude[] = await this.prismaClient.event.findMany({
-      include: {
-        owner: true,
-        eventAttendce: {
-          include: {
-            user: true,
-            car: true,
-          },
-        },
-      },
+      include: this.eventIncludeStatement,
     });
     return events.map((event) => new EventClass(event));
   }
@@ -54,15 +49,7 @@ export class EventStore {
   async getEventsByUserAttendee(userId: string) {
     const events: dbEventInclude[] = await this.prismaClient.event.findMany({
       where: { eventAttendce: { some: { userId } } },
-      include: {
-        owner: true,
-        eventAttendce: {
-          include: {
-            user: true,
-            car: true,
-          },
-        },
-      },
+      include: this.eventIncludeStatement,
     });
     return events.map((event) => new EventClass(event));
   }
@@ -70,15 +57,7 @@ export class EventStore {
   async getEventsByOwner(userId: string) {
     const events: dbEventInclude[] = await this.prismaClient.event.findMany({
       where: { ownerId: userId },
-      include: {
-        owner: true,
-        eventAttendce: {
-          include: {
-            user: true,
-            car: true,
-          },
-        },
-      },
+      include: this.eventIncludeStatement,
     });
     return events.map((event) => new EventClass(event));
   }
@@ -87,6 +66,19 @@ export class EventStore {
     return this.prismaClient.eventAttendce.findFirst({
       where: { eventId, userId },
     });
+  }
+
+  async editEvent(payload: EditEventPayload) {
+    const result = await this.prismaClient.event.update({
+      where: { id: payload.eventId },
+      data: {
+        name: payload.name,
+        description: payload.description || null,
+        location: payload.location || null,
+      },
+      include: this.eventIncludeStatement,
+    });
+    return new EventClass(result);
   }
 
   async attendEvent({

@@ -3,10 +3,12 @@ import {
   AddEventPayload,
   AddEventResponse,
   AttendEventPayload,
+  EditEventPayload,
   GetEventResponse,
   GetEventType,
   GetEventsPayload,
   GetEventsResponse,
+  IApiResponse,
   RevokeAttendenceEventPayload,
 } from "shared";
 import { httpClient } from "../../common/http-client";
@@ -17,6 +19,19 @@ export const useAddEventMutation = () => {
     mutationFn: (payload) => {
       return httpClient("/api/event", {
         method: "POST",
+        body: JSON.stringify(payload),
+      }).json();
+    },
+    onSuccess: () => queryClient.invalidateQueries(),
+  });
+};
+
+export const useEditEventMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation<IApiResponse, Error, EditEventPayload, unknown>({
+    mutationFn: (payload) => {
+      return httpClient("/api/event", {
+        method: "PUT",
         body: JSON.stringify(payload),
       }).json();
     },

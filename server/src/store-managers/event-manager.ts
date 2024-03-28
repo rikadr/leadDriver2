@@ -1,6 +1,7 @@
 import { EventStore } from "../stores/event-store";
 import { CarStore } from "../stores/car-store";
 import { badData, notFound } from "@hapi/boom";
+import { EditEventPayload } from "shared";
 
 export class EventManager {
   constructor(private eventStore: EventStore, private carStore: CarStore) {}
@@ -34,6 +35,21 @@ export class EventManager {
   async getEventsByOwner(userId: string) {
     const events = await this.eventStore.getEventsByOwner(userId);
     return events;
+  }
+
+  async editEvent({
+    userId,
+    payload,
+  }: {
+    userId: string;
+    payload: EditEventPayload;
+  }) {
+    const event = await this.getEventById(payload.eventId);
+    if (event.owner.id !== userId) {
+      throw badData("User is not the owner of this event");
+    }
+
+    await this.eventStore.editEvent(payload);
   }
 
   async attendEvent({

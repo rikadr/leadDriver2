@@ -3,6 +3,7 @@ import {
   AddEventPayload,
   AddEventResponse,
   AttendEventPayload,
+  EditEventPayload,
   GetEventPayload,
   GetEventResponse,
   GetEventsPayload,
@@ -27,6 +28,7 @@ export const register = async (server: Server, eventManager: EventManager) => {
         return {
           data: {
             event: event.toDTO(),
+            yourEvent: event.userIsOwner(userId),
             youAreAttending: event.userIsAttending(userId),
           },
         };
@@ -92,6 +94,28 @@ export const register = async (server: Server, eventManager: EventManager) => {
         );
 
         return { data: { eventId: createdEventId } };
+      },
+    },
+  });
+
+  server.route({
+    method: "PUT",
+    path: "/api/event",
+    options: {
+      description: "Edit an event",
+      auth: { mode: "required" },
+      handler: async (request, h) => {
+        const credentials = getCredentialsDefined(request);
+        const payload = JSON.parse(
+          request.payload.toString()
+        ) as EditEventPayload;
+
+        await eventManager.editEvent({
+          userId: credentials.userId,
+          payload,
+        });
+
+        return h.response();
       },
     },
   });

@@ -28,6 +28,7 @@ export type GetCarsResponse = IApiResponse<CarDTO[]>;
 export type GetEventPayload = { eventId: string };
 export type GetEventResponse = IApiResponse<{
   event: EventDTO;
+  yourEvent: boolean;
   youAreAttending: boolean;
 }>;
 
@@ -45,6 +46,14 @@ export type AddEventPayload = {
   description?: string;
   location?: string;
 };
+
+export type EditEventPayload = {
+  eventId: string;
+  name: string;
+  description?: string;
+  location?: string;
+};
+
 export type AddEventResponse = IApiResponse<{ eventId: string }>;
 
 export type AttendEventPayload = { eventId: string; carId: string };
