@@ -4,11 +4,12 @@ import { EditEventPayload, EventDTO } from "shared";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "../../../components/button";
-import { useEditEventMutation } from "../event-api";
+import { useDeleteEventMutation, useEditEventMutation } from "../event-api";
 
 export const EditEventForm: React.FC<{ event: EventDTO }> = ({ event }) => {
   const navigate = useNavigate();
   const editEventMutation = useEditEventMutation();
+  const deleteEventMutation = useDeleteEventMutation();
   const form = useForm<EditEventPayload>({
     defaultValues: {
       name: event.name,
@@ -32,7 +33,18 @@ export const EditEventForm: React.FC<{ event: EventDTO }> = ({ event }) => {
       onSubmit={form.handleSubmit(handleSubmit, (error) => console.log(error))}
       className="flex flex-col gap-4 w-96 m-auto"
     >
-      <h1>Edit event</h1>
+      <div className="flex items-baseline justify-between">
+        <h1>Edit event</h1>
+        <Button
+          variant="danger"
+          onClick={() =>
+            window.confirm("Are you sure you want to delete the event?") &&
+            deleteEventMutation.mutate({ eventId: event.id })
+          }
+        >
+          Delete event
+        </Button>
+      </div>
       <input type="text" placeholder="Event name" {...form.register("name")} />
       <input
         type="text"

@@ -54,6 +54,10 @@ export type EditEventPayload = {
   location?: string;
 };
 
+export type DeleteEventPayload = {
+  eventId: string;
+};
+
 export type AddEventResponse = IApiResponse<{ eventId: string }>;
 
 export type AttendEventPayload = { eventId: string; carId: string };

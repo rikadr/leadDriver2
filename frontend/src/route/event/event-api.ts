@@ -3,6 +3,7 @@ import {
   AddEventPayload,
   AddEventResponse,
   AttendEventPayload,
+  DeleteEventPayload,
   EditEventPayload,
   GetEventResponse,
   GetEventType,
@@ -12,6 +13,8 @@ import {
   RevokeAttendenceEventPayload,
 } from "shared";
 import { httpClient } from "../../common/http-client";
+import { useNavigate } from "react-router-dom";
+import { getAppUrl } from "../../utils/app-url";
 
 export const useAddEventMutation = () => {
   const queryClient = useQueryClient();
@@ -36,6 +39,23 @@ export const useEditEventMutation = () => {
       }).json();
     },
     onSuccess: () => queryClient.invalidateQueries(),
+  });
+};
+
+export const useDeleteEventMutation = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  return useMutation<IApiResponse, Error, DeleteEventPayload, unknown>({
+    mutationFn: (payload) => {
+      return httpClient("/api/event", {
+        method: "DELETE",
+        body: JSON.stringify(payload),
+      }).json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      navigate(getAppUrl("events"));
+    },
   });
 };
 

@@ -46,10 +46,23 @@ export class EventManager {
   }) {
     const event = await this.getEventById(payload.eventId);
     if (event.owner.id !== userId) {
-      throw badData("User is not the owner of this event");
+      throw badData(
+        "Unable to edit event. User is not the owner of this event"
+      );
     }
 
     await this.eventStore.editEvent(payload);
+  }
+
+  async deleteEvent({ userId, eventId }: { userId: string; eventId: string }) {
+    const event = await this.getEventById(eventId);
+    if (event.owner.id !== userId) {
+      throw badData(
+        "Unable to delete event. User is not the owner of this event"
+      );
+    }
+
+    await this.eventStore.deleteEvent(eventId);
   }
 
   async attendEvent({

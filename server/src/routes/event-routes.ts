@@ -3,6 +3,7 @@ import {
   AddEventPayload,
   AddEventResponse,
   AttendEventPayload,
+  DeleteEventPayload,
   EditEventPayload,
   GetEventPayload,
   GetEventResponse,
@@ -113,6 +114,28 @@ export const register = async (server: Server, eventManager: EventManager) => {
         await eventManager.editEvent({
           userId: credentials.userId,
           payload,
+        });
+
+        return h.response();
+      },
+    },
+  });
+
+  server.route({
+    method: "DELETE",
+    path: "/api/event",
+    options: {
+      description: "Delete an event",
+      auth: { mode: "required" },
+      handler: async (request, h) => {
+        const credentials = getCredentialsDefined(request);
+        const { eventId } = JSON.parse(
+          request.payload.toString()
+        ) as DeleteEventPayload;
+
+        await eventManager.deleteEvent({
+          userId: credentials.userId,
+          eventId,
         });
 
         return h.response();

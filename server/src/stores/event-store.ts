@@ -19,15 +19,17 @@ export class EventStore {
   async createEvent(
     userId: string,
     data: { name: string; description?: string; location?: string }
-  ): Promise<event> {
-    return await this.prismaClient.event.create({
+  ) {
+    const created = await this.prismaClient.event.create({
       data: {
         name: data.name,
         description: data.description ?? null,
         location: data.location ?? null,
         ownerId: userId,
       },
+      include: this.eventIncludeStatement,
     });
+    return new EventClass(created);
   }
 
   async getEventById(eventId: string) {
@@ -69,7 +71,7 @@ export class EventStore {
   }
 
   async editEvent(payload: EditEventPayload) {
-    const result = await this.prismaClient.event.update({
+    const edited = await this.prismaClient.event.update({
       where: { id: payload.eventId },
       data: {
         name: payload.name,
@@ -78,7 +80,16 @@ export class EventStore {
       },
       include: this.eventIncludeStatement,
     });
-    return new EventClass(result);
+    return new EventClass(edited);
+  }
+
+  async deleteEvent(eventId: string) {
+    const deleted = await this.prismaClient.event.delete({
+      where: { id: eventId },
+      include: this.eventIncludeStatement,
+    });
+
+    return new EventClass(deleted);
   }
 
   async attendEvent({
