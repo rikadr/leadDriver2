@@ -30,3 +30,17 @@
     background: skyblue;
     color: white;
   }
+
+  ::-webkit-scrollbar {
+    width: .5rem;
+  }
+  
+  ::-webkit-scrollbar-track {
+    margin-top: 60px;
+    margin-bottom: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
