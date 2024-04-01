@@ -15,7 +15,7 @@ export const EventPage: React.FC = () => {
   if (!result) {
     return <>No event found</>;
   }
-  const { event, youAreAttending } = result;
+  const { event, youAreAttending, yourCarId } = result;
   return (
     <div className="space-y-4">
       <div className="flex gap-4 items-baseline">
@@ -51,17 +51,20 @@ export const EventPage: React.FC = () => {
       <AttendEvent event={event} youAreAttending={youAreAttending} />
       <p>Attendees: {event?.attendence?.length}</p>
       <CardGridWrapper>
-        {event?.attendence?.map((attendee) => (
-          <CarCardLink
-            key={attendee.id}
-            car={{
-              id: attendee.car.id,
-              model: attendee.car.model,
-              imageUrl: attendee.car.imageUrl,
-              ownerName: attendee.user.name,
-            }}
-          />
-        ))}
+        {event?.attendence
+          ?.sort((a) => (!!yourCarId && a.car.id === yourCarId ? -1 : 1))
+          .map((attendee) => (
+            <CarCardLink
+              key={attendee.id}
+              car={{
+                id: attendee.car.id,
+                model: attendee.car.model,
+                imageUrl: attendee.car.imageUrl,
+                ownerName: attendee.user.name,
+              }}
+              isYourCar={!!yourCarId && attendee.car.id === yourCarId}
+            />
+          ))}
       </CardGridWrapper>
     </div>
   );

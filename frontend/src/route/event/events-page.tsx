@@ -30,6 +30,7 @@ export const EventsPage: React.FC = () => {
             event={event.event}
             yourEvent={event.yourEvent}
             youAreAttending={event.youAreAttending}
+            yourCarId={event.yourCarId}
           />
         ))}
       </CardGridWrapper>

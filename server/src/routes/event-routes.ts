@@ -31,6 +31,8 @@ export const register = async (server: Server, eventManager: EventManager) => {
             event: event.toDTO(),
             yourEvent: event.userIsOwner(userId),
             youAreAttending: event.userIsAttending(userId),
+            yourCarId: event.eventAttendce.find((e) => e.car.ownerId === userId)
+              ?.car.id,
           },
         };
       },
@@ -66,6 +68,8 @@ export const register = async (server: Server, eventManager: EventManager) => {
             event: e.toDTO(),
             yourEvent: e.userIsOwner(userId),
             youAreAttending: e.userIsAttending(userId),
+            yourCarId: e.eventAttendce.find((e) => e.car.ownerId === userId)
+              ?.car.id,
           })),
         };
       },

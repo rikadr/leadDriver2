@@ -5,10 +5,19 @@ import { Card } from "../../components/card";
 
 export const CarCard: React.FC<{
   car: CarDTO;
+  isYourCar?: boolean;
   hoverEffects?: boolean;
-}> = ({ car, hoverEffects }) => {
+}> = ({ car, isYourCar = false, hoverEffects }) => {
   return (
-    <Card hoverEffects={hoverEffects} className="h-full">
+    <Card
+      hoverEffects={hoverEffects}
+      className="h-full relative overflow-hidden"
+    >
+      {isYourCar && (
+        <div className="absolute top-0 right-0 py-0.5 px-4 rounded-bl-lg bg-gradient-to-r from-sky-500 to-sky-900 select-none">
+          <p>Your car</p>
+        </div>
+      )}
       <div className="flex gap-4">
         {car.imageUrl ? (
           <img
@@ -32,21 +41,23 @@ export const CarCard: React.FC<{
 
 export const CarCardLink: React.FC<{
   car: CarDTO;
-}> = ({ car }) => {
+  isYourCar?: boolean;
+}> = ({ car, isYourCar }) => {
   return (
     <Link to={getAppUrl("car", car.id)}>
-      <CarCard car={car} hoverEffects />
+      <CarCard car={car} isYourCar={isYourCar} hoverEffects />
     </Link>
   );
 };
 
 export const CarCardButton: React.FC<{
   car: CarDTO;
+  isYourCar?: boolean;
   onClick: () => void;
-}> = ({ car, onClick }) => {
+}> = ({ car, isYourCar, onClick }) => {
   return (
     <button onClick={onClick}>
-      <CarCard car={car} hoverEffects />
+      <CarCard car={car} isYourCar={isYourCar} hoverEffects />
     </button>
   );
 };

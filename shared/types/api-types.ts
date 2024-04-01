@@ -40,6 +40,7 @@ export type GetEventResponse = IApiResponse<{
   event: EventDTO;
   yourEvent: boolean;
   youAreAttending: boolean;
+  yourCarId?: string;
 }>;
 
 export type GetEventsPayload = { type: GetEventType };
@@ -48,6 +49,7 @@ export type GetEventsResponse = IApiResponse<
     event: EventDTO;
     yourEvent: boolean;
     youAreAttending: boolean;
+    yourCarId?: string;
   }[]
 >;
 

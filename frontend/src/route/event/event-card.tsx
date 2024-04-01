@@ -8,7 +8,8 @@ export const EventCard: React.FC<{
   event: EventDTO;
   yourEvent: boolean;
   youAreAttending: boolean;
-}> = ({ event, yourEvent, youAreAttending }) => {
+  yourCarId?: string;
+}> = ({ event, yourEvent, youAreAttending, yourCarId }) => {
   const description = event.description || "";
   return (
     <Link to={getAppUrl("event", event.id)}>
@@ -27,13 +28,15 @@ export const EventCard: React.FC<{
           {event.attendence.length} car{event.attendence.length !== 1 && "s"}
         </p>
         <div className="flex">
-          {event.attendence.map((attendence) => (
-            <CarBouble
-              key={attendence.id}
-              imageUrl={attendence.car.imageUrl}
-              model={attendence.car.model}
-            />
-          ))}
+          {event.attendence
+            .sort((a) => (!!yourCarId && a.car.id === yourCarId ? -1 : 1))
+            .map((attendence) => (
+              <CarBouble
+                key={attendence.id}
+                imageUrl={attendence.car.imageUrl}
+                model={attendence.car.model}
+              />
+            ))}
         </div>
         {(yourEvent || youAreAttending) && (
           <div
