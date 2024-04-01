@@ -33,7 +33,7 @@ const MenuItem: React.FC<{ appId: AppId; title: string }> = ({
   title,
 }) => {
   const location = useLocation();
-  const isActive = location.pathname === appUrl[appId];
+  const isActive = location.pathname === "/" + appUrl[appId];
   return (
     <Link
       to={appUrl[appId]}
