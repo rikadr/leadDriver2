@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useYouInitials } from "../route/my-profile/my-profile-api";
 import { AppId, appUrl } from "../utils/app-url";
+import LogoB from "../images/Lead driver logo b.png";
 
 export const NavMenu: React.FC = () => {
   const you = useYouInitials();
@@ -10,8 +11,9 @@ export const NavMenu: React.FC = () => {
     <div className="absolute w-full h-14 border-b-[1px] select-none border-white/10 backdrop-blur-md bg-sky-600/20 flex items-center z-50">
       <Link
         to={appUrl["home"]}
-        className="font-bold px-6 py-4 transition-colors duration-200 hover:bg-sky-500 hover:text-white"
+        className="flex items-center gap-2 font-bold px-6 h-full transition-colors duration-200 hover:bg-sky-500 hover:text-white"
       >
+        <img src={LogoB} alt="LeadDriver" className="h-8" />
         LeadDriver
       </Link>
       <MenuItem appId="events" title="Events" />
