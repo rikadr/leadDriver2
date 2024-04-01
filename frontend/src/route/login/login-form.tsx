@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLoginMutation, useLogoutMutation } from "./login-api";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "../../components/button";
+import { Card } from "../../components/card";
 
 export const LoginForm: React.FC = () => {
   const [message, setMessage] = useState<string>();
@@ -46,61 +47,64 @@ export const LoginForm: React.FC = () => {
           Log out
         </Button>
       </div>
-      <Button
-        variant="secondary"
-        onClick={() =>
-          loginMutation.mutate({
-            email: "rikard4@mail.com",
-            password: "admin",
-          })
-        }
-      >
-        Log in as Rikard
-      </Button>
-      <Button
-        variant="secondary"
-        onClick={() =>
-          loginMutation.mutate({
-            email: "peder@peder.peder",
-            password: "peder",
-          })
-        }
-      >
-        Log in as Peder
-      </Button>
-      <Button
-        variant="secondary"
-        onClick={() =>
-          loginMutation.mutate({
-            email: "fredrik@fredrik.fredrik",
-            password: "fredrik",
-          })
-        }
-      >
-        Log in as Fredrik
-      </Button>
-      <Button
-        variant="secondary"
-        onClick={() =>
-          loginMutation.mutate({
-            email: "marius@marius.marius",
-            password: "marius",
-          })
-        }
-      >
-        Log in as Marius
-      </Button>
-      <Button
-        variant="secondary"
-        onClick={() =>
-          loginMutation.mutate({
-            email: "siri@siri.siri",
-            password: "siri",
-          })
-        }
-      >
-        Log in as Siri
-      </Button>
+      <Card className="flex flex-col gap-4 w-96 m-auto mt-10">
+        <h1 className="text-center">🤫</h1>
+        <Button
+          variant="secondary"
+          onClick={() =>
+            loginMutation.mutate({
+              email: "rikard4@mail.com",
+              password: "admin",
+            })
+          }
+        >
+          Log in as Rikard
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={() =>
+            loginMutation.mutate({
+              email: "peder@peder.peder",
+              password: "peder",
+            })
+          }
+        >
+          Log in as Peder
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={() =>
+            loginMutation.mutate({
+              email: "fredrik@fredrik.fredrik",
+              password: "fredrik",
+            })
+          }
+        >
+          Log in as Fredrik
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={() =>
+            loginMutation.mutate({
+              email: "marius@marius.marius",
+              password: "marius",
+            })
+          }
+        >
+          Log in as Marius
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={() =>
+            loginMutation.mutate({
+              email: "siri@siri.siri",
+              password: "siri",
+            })
+          }
+        >
+          Log in as Siri
+        </Button>
+      </Card>
     </form>
   );
 };
